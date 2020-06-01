@@ -1,0 +1,18 @@
+server:
+  port: 8090
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mes?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useSSL=false
+      &serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: "00000000"
+    hikari:
+      connection-timeout: 1000
+      validation-timeout: 1000
+      idle-timeout: 30000
+      max-lifetime: 60000
+      maximum-pool-size: 3
+      minimum-idle: 1
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
