@@ -7,6 +7,10 @@ spring:
       &serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: root
     password: "00000000"
+#    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#    url: jdbc:sqlserver://127.0.0.1:1433;DatabaseName=BNSY-SIS
+#    username: sa
+#    password: p@ssw0rd
     hikari:
       connection-timeout: 1000
       validation-timeout: 1000
@@ -14,5 +18,20 @@ spring:
       max-lifetime: 60000
       maximum-pool-size: 3
       minimum-idle: 1
+  #thymelea模板配置
+  thymeleaf:
+    cache: false
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    prefix: classpath:/templates
+    suffix: .html
+    resources:
+      chain:
+        strategy:
+          content:
+            enabled: true
+            paths: /**
 mybatis:
   mapper-locations: classpath:mapper/*.xml
