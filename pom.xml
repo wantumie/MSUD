@@ -40,18 +40,23 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
-        </dependency>
+        </dependency>-->
 
         <!-- 引入sqlserver数据库链接包 -->
-        <!--<dependency>
+        <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>sqljdbc4</artifactId>
             <version>4.0</version>
-        </dependency>-->
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.4.1</version>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

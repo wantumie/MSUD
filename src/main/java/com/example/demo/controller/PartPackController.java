@@ -43,7 +43,7 @@ public class PartPackController {
         return r;
     }
 
-    @RequestMapping("/querypartpackist")
+    @RequestMapping("/querypartpacklist")
     public R queryList () {
         R r = new R();
 
