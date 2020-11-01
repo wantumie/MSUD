@@ -7,6 +7,9 @@ import java.util.Map;
 
 @Mapper
 public interface TestDao {
+
     String queryName(String id);
+
     List<Map> queryAllList();
+
 }

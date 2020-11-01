@@ -152,7 +152,7 @@ public class TestServiceImpl implements TestService {
         productionOrderInfo.setSegNo(segNo);
         productionOrderInfo.setProductionOrderCode(productionOrderCode);
         String productionOrderInfoObject = JSONObject.toJSONString(productionOrderInfo);
-        String jsonObject = restTemplate.postForObject("http://127.0.0.1:8088/queryDetail", productionOrderInfoObject, String.class);
+        String jsonObject = restTemplate.postForObject("http://10.30.184.236:80/LINKS/queryDetail", productionOrderInfoObject, String.class);
         log.info("生产工单明细表--接口返回数据："+jsonObject);
 
         JSONObject resultJSONObject = JSONObject.parseObject(jsonObject);
@@ -203,7 +203,7 @@ public class TestServiceImpl implements TestService {
         productionOrderInfo.setFProductId(fProductId);
         productionOrderInfo.setFPackId(fPackId);
         String productionOrderInfoObject = JSONObject.toJSONString(productionOrderInfo);
-        String jsonObject = restTemplate.postForObject("http://127.0.0.1:8088/queryProduct", productionOrderInfoObject, String.class);
+        String jsonObject = restTemplate.postForObject("http://10.30.184.236:80/LINKS/queryProduct", productionOrderInfoObject, String.class);
 
         JSONObject resultJSONObject = JSONObject.parseObject(jsonObject);
         JSONObject productInfo = resultJSONObject.getJSONObject("productInfo");
@@ -244,4 +244,11 @@ public class TestServiceImpl implements TestService {
         return jsonObject;
     }
 
+
+    public String queryPartPackInfoList(){
+        List<ProductInfoMap> list = partPackDao.queryPartPackList();
+        JSONArray array = JSONArray.parseArray(JSON.toJSONString(list));
+//        JSONObject jsonObject = (JSONObject) JSON.toJSON(list);
+        return array.toJSONString();
+    }
 }

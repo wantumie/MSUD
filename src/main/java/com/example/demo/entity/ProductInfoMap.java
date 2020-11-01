@@ -16,24 +16,24 @@ public class ProductInfoMap {
 
 
 
-    private String packingTypeId;
+    private String packingTypeId;//包装工艺
 
-    private String factoryProductid;
+    private String factoryProductid;//钢厂资源号
 
-    private String spec;
-    private String productTypeName;
-    private String shopsign;
+    private String spec;//规格
+    private String productTypeName;//品名
+    private String shopsign;//牌号
 
-    private String quantity;
-    private String machineId;
-    private String qualityGradeName;
+    private String quantity;//件数
+    private String machineId;//机组
+    private String qualityGradeName;//质量等级
 
 
 
-    private String confirmDate;
-    private String unitedPackid;
+    private String confirmDate;//日期
+    private String unitedPackid;//并包号
 
-    private String confirmPerson;
+    private String confirmPerson;//检验员
     private String partid;
     private String mwrapid;
     private String grossWeight;

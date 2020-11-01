@@ -2,15 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.dao.PartPackDao">
-    <select id="queryPartPack" parameterType="com.example.demo.entity.ProductInfoMap" resultType="java.lang.String">
-        select * from `rmPartPack` where packid = #{packId}
+    <select id="queryPartPack" parameterType="java.lang.String" resultType="com.example.demo.entity.ProductInfoMap">
+        select * from productInfo where packId = #{packId}
     </select>
 
     <insert id="insertPartPack" parameterType="com.example.demo.entity.ProductInfoMap">
-
+        INSERT INTO mes.productinfo(id, packId, spec, productTypeId, shopsign, quantity, qualityGradeName, confirmDate, machineId, productTypeName, packingTypeId, factoryProductid, unitedPackId, partId, putinWeight, mwrapid, confirmPerson, grossWeight, netWeight, deep, width, length)
+                            VALUES (#{id}, #{packId}, #{spec}, #{productTypeId}, #{shopsign}, #{quantity}, #{qualityGradeNam}, #{confirmDate}, #{machineId}, #{productTypeName}, #{packingTypeId}, #{factoryProductid}, #{unitedPackId}, #{partId}, #{putinWeight}, #{mwrapid}, #{confirmPerson}, #{grossWeight}, #{netWeight}, #{deep}, #{width}, #{length});
     </insert>
 
     <update id="updatePartPack" parameterType="com.example.demo.entity.ProductInfoMap">
-
+        UPDATE productinfo
+        SET packId = #{packId},
+        spec = #{spec},
+        productTypeId = #{productTypeId},
+        shopsign = #{shopsign},
+        quantity = #{quantity},
+        qualityGradeName = #{qualityGradeNam},
+        confirmDate = #{confirmDate},
+        machineId = #{machineId},
+        productTypeName = #{productTypeName},
+        packingTypeId = #{packingTypeId},
+        factoryProductid = #{factoryProductid},
+        unitedPackId = #{unitedPackId},
+        putinWeight = #{putinWeight},
+        mwrapid = #{mwrapid},
+        confirmPerson = #{confirmPerson}
+        WHERE partId = #{partId}
     </update>
+
+    <select id="queryPartPackList" resultType="com.example.demo.entity.ProductInfoMap">
+        select * from productInfo
+    </select>
 </mapper>

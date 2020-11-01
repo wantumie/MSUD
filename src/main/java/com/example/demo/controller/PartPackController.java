@@ -23,7 +23,8 @@ public class PartPackController {
 
 
     @RequestMapping("/queryAndInsertData")
-    public R queryAndInsertData(String segNo, String productionOrderCode, String fProductId, String fPackId, String packId){
+    public R queryAndInsertData(String segNo, String productionOrderCode, String fProductId, String fPackId,
+                                String packId){
 
         R r = new R();
         if (StringUtils.isEmpty(segNo) || StringUtils.isEmpty(productionOrderCode) || StringUtils.isEmpty(fProductId) || StringUtils.isEmpty(fPackId)){
@@ -41,4 +42,18 @@ public class PartPackController {
 
         return r;
     }
+
+    @RequestMapping("/querypartpackist")
+    public R queryList () {
+        R r = new R();
+
+        String jsonStr = testService.queryPartPackInfoList();
+        r.setResultCode(200);
+        r.setResultMsg("查询成功！");
+        r.setResultInfo(jsonStr);
+
+        return r;
+    }
+
+
 }

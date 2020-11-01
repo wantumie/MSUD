@@ -18,4 +18,8 @@ public interface TestService {
     String queryProduct(String segNo, String productionOrderCode, String fProductId, String fPackId);
 
     String queryPartPackInfo(String packId);
+
+    String queryPartPackInfoList();
+
+
 }
