@@ -164,11 +164,26 @@ public class TestServiceImpl implements TestService {
         String productTypeName = rmPartPackList.getString("productTypeName");
         String shopsign = rmPartPackList.getString("shopsign");
         String mwrapid = rmPartPackList.getString("mwrapid");//母卷号
+        String stoveNum = rmPartPackList.getString("stoveNum");//炉号
+
 
         //confirmList
         JSONObject confirmList = resultJSONObject.getJSONObject("confirmList");
         String confirmDate = confirmList.getString("confirmDate");
         String confirmPerson = confirmList.getString("confirmPerson");//检验员（确认人）
+
+        //dataInfo
+        JSONObject dataInfo = resultJSONObject.getJSONObject("dataInfo");
+        String machineId = dataInfo.getString("machineId");//机组代码
+
+        //fmPartList
+        JSONObject fmPartList = resultJSONObject.getJSONObject("fmPartList");
+        String innerDiameter = fmPartList.getString("innerDiameter");//卷内径
+        String outWidth = fmPartList.getString("outWidth");//卷宽度(立放时的宽度)
+        String consigneeId = fmPartList.getString("consigneeId");//收货单位编码
+        String consigneeName = fmPartList.getString("consigneeName");//收货单位名称
+        String consigneeRemark = fmPartList.getString("consigneeRemark");//收货单位名称
+        String outDiameter = fmPartList.getString("outDiameter");//卷外径
 
         ProductInfoMap productInfoMap = new ProductInfoMap();
         productInfoMap.setPackid(packid);
@@ -179,6 +194,13 @@ public class TestServiceImpl implements TestService {
         productInfoMap.setMwrapid(mwrapid);
         productInfoMap.setConfirmDate(confirmDate);
         productInfoMap.setConfirmPerson(confirmPerson);
+        productInfoMap.setStoveNum(stoveNum);
+        productInfoMap.setInnerDiameter(innerDiameter);
+        productInfoMap.setOutDiameter(outDiameter);
+        productInfoMap.setOutWidth(outWidth);
+        productInfoMap.setConsigneeId(consigneeId);
+        productInfoMap.setConsigneeName(consigneeName);
+        productInfoMap.setConsigneeRemark(consigneeRemark);
 
         partPackDao.insertPartPack(productInfoMap);
 

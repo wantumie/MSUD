@@ -4,37 +4,35 @@
 <mapper namespace="com.example.demo.dao.PartPackDao">
     <resultMap id="BaseResultMap" type="com.example.demo.entity.ProductInfoMap">
 <!--        <result column="id" jdbcType="INTEGER" property="id" />-->
-        <result column="钢卷号" property="packid" />
+        <result column="钢卷号" property="factoryProductid" />
         <result column="日期" property="confirmDate" />
         <result column="时间" property="factoryProductid" />
-        <result column="母卷号" property="factoryProductid" />
+        <result column="母卷号" property="mwrapId" />
         <result column="并包号" property="unitedPackid" />
         <result column="捆包卷数" property="factoryProductid" />
         <result column="堆垛区" property="factoryProductid" />
-        <result column="产品外径" property="factoryProductid" />
-        <result column="产品内径" property="factoryProductid" />
-        <result column="产品宽度" property="factoryProductid" />
+        <result column="产品外径" property="outDiameter" />
+        <result column="产品内径" property="innerDiameter" />
+        <result column="产品宽度" property="outWidth" />
         <result column="品名" property="productTypeName" />
         <result column="标准" property="factoryProductid" />
         <result column="规格" property="spec" />
         <result column="牌号" property="shopsign" />
         <result column="毛重增加" property="factoryProductid" />
         <result column="件数" property="quantity" />
-        <result column="炉号" property="factoryProductid" />
+        <result column="炉号" property="stoveNum" />
         <result column="机组" property="machineId" />
         <result column="质量等级" property="qualityGradeName" />
-        <result column="收货单位代号" property="factoryProductid" />
-        <result column="收货单位名称" property="factoryProductid" />
-        <result column="收货备注" property="factoryProductid" />
-        <result column="客户零件号" property="factoryProductid" />
+        <result column="收货单位代号" property="consigneeId" />
+        <result column="收货单位名称" property="consigneeName" />
+        <result column="收货备注" property="consigneeRemark" />
+        <result column="客户零件号" property="partid" />
         <result column="客户零件名称" property="factoryProductid" />
         <result column="检查员" property="confirmPerson" />
         <result column="净重" property="factoryProductid" />
         <result column="捆包号" property="packid" />
         <result column="钢厂资源号" property="factoryProductid" />
         <result column="堆垛托盘号" property="factoryProductid" />
-        INSERT INTO "宝钢数据库表" VALUES (#{packid}, #{confirmDate}, #{factoryProductid}, #{factoryProductid}, #{unitedPackid}, #{quantity}, #{qualityGradeNam}, #{confirmDate}, #{machineId}, #{productTypeName}, #{packingTypeId}, #{factoryProductid}, #{unitedPackId}, #{partId}, #{putinWeight}, #{mwrapid}, #{confirmPerson}, #{grossWeight}, #{netWeight}, #{deep}, #{width}, #{length});
-
     </resultMap>
 
 
@@ -46,17 +44,39 @@
         /*INSERT INTO mes.productinfo(id, packId, spec, productTypeId, shopsign, quantity, qualityGradeName, confirmDate, machineId, productTypeName, packingTypeId, factoryProductid, unitedPackId, partId, putinWeight, mwrapid, confirmPerson, grossWeight, netWeight, deep, width, length)
                             VALUES (#{id}, #{packId}, #{spec}, #{productTypeId}, #{shopsign}, #{quantity}, #{qualityGradeNam}, #{confirmDate}, #{machineId}, #{productTypeName}, #{packingTypeId}, #{factoryProductid}, #{unitedPackId}, #{partId}, #{putinWeight}, #{mwrapid}, #{confirmPerson}, #{grossWeight}, #{netWeight}, #{deep}, #{width}, #{length});
     */
-        INSERT INTO "宝钢数据库表" VALUES (#{id}, #{packId}, #{spec}, #{productTypeId}, #{shopsign}, #{quantity}, #{qualityGradeNam}, #{confirmDate}, #{machineId}, #{productTypeName}, #{packingTypeId}, #{factoryProductid}, #{unitedPackId}, #{partId}, #{putinWeight}, #{mwrapid}, #{confirmPerson}, #{grossWeight}, #{netWeight}, #{deep}, #{width}, #{length});
-
+        INSERT INTO "宝钢数据库表" VALUES (#{packid}, #{confirmDate}, #{factoryProductid}, #{mwrapId}, #{unitedPackid}, #{factoryProductid}, #{factoryProductid}, #{outDiameter}, #{innerDiameter},
+        #{outWidth}, #{productTypeName}, #{factoryProductid}, #{spec}, #{shopsign}, #{factoryProductid}, #{quantity}, #{stoveNum}, #{machineId}, #{qualityGradeName}, #{consigneeId}, #{consigneeName}, #{consigneeRemark},
+        #{partid}, #{factoryProductid}, #{confirmPerson}, #{factoryProductid}, #{packid}, #{factoryProductid}, #{factoryProductid})
     </insert>
 
     <update id="updatePartPack" parameterType="com.example.demo.entity.ProductInfoMap">
         update "宝钢数据库表"
-            set 钢卷号 = #{packid},
-                日期 = #{confirmDate},
-                时间 = #{asdf},
-                母卷号 = #{asdf},
-                并包号 = #{asdf},
+            set
+            <if test="packid != null and packid != ''">
+                钢卷号 = #{packid},
+            </if>
+        <if test="confirmDate != null and confirmDate != ''">
+            日期 = #{confirmDate},
+        </if>
+        <if test="packid != null and packid != ''">
+            时间 = #{asdf},
+        </if>
+        <if test="mwrapId != null and mwrapId != ''">
+            母卷号 = #{mwrapId},
+        </if>
+        <if test="unitedPackid != null and unitedPackid != ''">
+            并包号 = #{asdf},
+        </if>
+        <if test="factoryProductid != null and factoryProductid != ''">
+            捆包卷数 = #{factoryProductid},
+        </if>
+        <if test="packid != null and packid != ''">
+            钢卷号 = #{packid},
+        </if>
+        <if test="packid != null and packid != ''">
+            钢卷号 = #{packid},
+        </if>
+
                 捆包卷数 = #{asdf},
                 堆垛区 = #{asdf},
                 产品外径 = #{asdf},
@@ -78,10 +98,11 @@
                 客户零件名称 = #{asdf},
                 检查员 = #{asdf},
                 净重 = #{asdf},
-                捆包号 = #{asdf},
                 钢厂资源号 = #{asdf},
                 毛重 = #{asdf},
                 堆垛托盘号 = #{asdf}
+
+            where 捆包号 = #{asdf}
 
 
 
