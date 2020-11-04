@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import com.example.demo.entity.ProductInfoMap;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,4 +13,7 @@ public interface TestDao {
 
     List<Map> queryAllList();
 
+    ProductInfoMap queryPartinfo(String packId);
+
+    List<Map> queryPartList();
 }

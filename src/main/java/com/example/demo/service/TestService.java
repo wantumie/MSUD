@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.ProductInfoMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -13,13 +15,15 @@ public interface TestService {
 
     List<Map> queryAllList();
 
+    List<Map> queryPartList();
+
     String queryDetail(String segNo, String productionOrderCode);
 
     String queryProduct(String segNo, String productionOrderCode, String fProductId, String fPackId);
 
     String queryPartPackInfo(String packId);
 
-    String queryPartPackInfoList();
+    List<ProductInfoMap> queryPartPackInfoList(String packId);
 
 
 }

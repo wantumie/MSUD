@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.ColumnTitleMap;
+import com.example.demo.entity.ProductInfoMap;
 import com.example.demo.service.ExportDataService;
 import com.example.demo.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.crypto.Data;
@@ -33,9 +35,13 @@ public class TestController {
     ExportDataService exportDataService;
 
     @RequestMapping("/test")
-    public String test(String id){
+    public ModelAndView test(String id){
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("newText","你好，Thymeleaf！");
+        mv.addObject("gender","1");
         String name = testService.testService(id);
-        return name;
+        mv.setViewName("/test.html");
+        return mv;
     }
 
     @RequestMapping("/get")
@@ -50,9 +56,27 @@ public class TestController {
         return name;
     }
     @RequestMapping("/list")
-    public Object queryAllList(){
-        List<Map> list = testService.queryAllList();
+    public ModelAndView queryAllList(){
+        ModelAndView mv=new ModelAndView();
+        List<Map> list = testService.queryPartList();
+        mv.addObject("newText","你好，Thymeleaf！");
+        mv.addObject("gender","1");
+        mv.addObject("productList",list);
+//        if(list!=null) {
+//            mv.addObject("loginUser",list);
+//        }
+        mv.setViewName("/list");
+        return mv;
+
+    }
+
+    @RequestMapping("/update")
+    public List<Map> update(String id){
+        ModelAndView mv=new ModelAndView();
+        List<Map> list = testService.queryPartList();
+
         return list;
+
     }
 
     @GetMapping(value = "/excel")
@@ -78,4 +102,12 @@ public class TestController {
         return "20201101";
     }
 
+    @RequestMapping("/index")
+    public ModelAndView index(){
+
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/index");
+
+        return mv;
+    }
 }

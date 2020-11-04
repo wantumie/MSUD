@@ -1,11 +1,15 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.ProductInfoMap;
 import com.example.demo.entity.R;
 import com.example.demo.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 /**
  * describe
@@ -44,15 +48,19 @@ public class PartPackController {
     }
 
     @RequestMapping("/querypartpacklist")
-    public R queryList () {
-        R r = new R();
+    public ModelAndView queryList (String packid) {
+//        R r = new R();
 
-        String jsonStr = testService.queryPartPackInfoList();
-        r.setResultCode(200);
-        r.setResultMsg("查询成功！");
-        r.setResultInfo(jsonStr);
+        ModelAndView mv = new ModelAndView();
 
-        return r;
+        List<ProductInfoMap> productInfoList = testService.queryPartPackInfoList(packid);
+//        r.setResultCode(200);
+//        r.setResultMsg("查询成功！");
+//        r.setResultInfo(jsonStr);
+        mv.addObject("productInfoList", productInfoList);
+        mv.setViewName("/index.html");
+
+        return mv;
     }
 
 

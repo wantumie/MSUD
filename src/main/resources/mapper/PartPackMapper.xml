@@ -41,16 +41,16 @@
     </select>
 
     <insert id="insertPartPack" parameterType="com.example.demo.entity.ProductInfoMap">
-        /*INSERT INTO mes.productinfo(id, packId, spec, productTypeId, shopsign, quantity, qualityGradeName, confirmDate, machineId, productTypeName, packingTypeId, factoryProductid, unitedPackId, partId, putinWeight, mwrapid, confirmPerson, grossWeight, netWeight, deep, width, length)
+        INSERT INTO productinfo(id, packId, spec, productTypeId, shopsign, quantity, qualityGradeName, confirmDate, machineId, productTypeName, packingTypeId, factoryProductid, unitedPackId, partId, putinWeight, mwrapid, confirmPerson, grossWeight, netWeight, deep, width, length)
                             VALUES (#{id}, #{packId}, #{spec}, #{productTypeId}, #{shopsign}, #{quantity}, #{qualityGradeNam}, #{confirmDate}, #{machineId}, #{productTypeName}, #{packingTypeId}, #{factoryProductid}, #{unitedPackId}, #{partId}, #{putinWeight}, #{mwrapid}, #{confirmPerson}, #{grossWeight}, #{netWeight}, #{deep}, #{width}, #{length});
-    */
-        INSERT INTO "宝钢数据库表" VALUES (#{packid}, #{confirmDate}, #{factoryProductid}, #{mwrapId}, #{unitedPackid}, #{factoryProductid}, #{factoryProductid}, #{outDiameter}, #{innerDiameter},
+
+        /*INSERT INTO "宝钢数据库表" VALUES (#{packid}, #{confirmDate}, #{factoryProductid}, #{mwrapId}, #{unitedPackid}, #{factoryProductid}, #{factoryProductid}, #{outDiameter}, #{innerDiameter},
         #{outWidth}, #{productTypeName}, #{factoryProductid}, #{spec}, #{shopsign}, #{factoryProductid}, #{quantity}, #{stoveNum}, #{machineId}, #{qualityGradeName}, #{consigneeId}, #{consigneeName}, #{consigneeRemark},
         #{partid}, #{factoryProductid}, #{confirmPerson}, #{factoryProductid}, #{packid}, #{factoryProductid}, #{factoryProductid})
-    </insert>
+   */ </insert>
 
     <update id="updatePartPack" parameterType="com.example.demo.entity.ProductInfoMap">
-        update "宝钢数据库表"
+        <!--update "宝钢数据库表"
             set
             <if test="packid != null and packid != ''">
                 钢卷号 = #{packid},
@@ -71,43 +71,81 @@
             捆包卷数 = #{factoryProductid},
         </if>
         <if test="packid != null and packid != ''">
-            钢卷号 = #{packid},
+            堆垛区 = #{factoryProductid},
         </if>
         <if test="packid != null and packid != ''">
-            钢卷号 = #{packid},
+            产品外径 = #{outDiameter},
+        </if>
+        <if test="packid != null and packid != ''">
+            产品内径 = #{innerDiameter},
+        </if>
+        <if test="packid != null and packid != ''">
+            产品宽度 = #{outWidth},
+        </if>
+        <if test="packid != null and packid != ''">
+            品名 = #{productTypeName},
+        </if>
+        <if test="packid != null and packid != ''">
+            标准 = #{factoryProductid},
+        </if>
+        <if test="packid != null and packid != ''">
+            规格 = #{spec},
+        </if>
+        <if test="packid != null and packid != ''">
+            牌号 = #{shopsign},
+        </if>
+        <if test="packid != null and packid != ''">
+            毛重增加 = #{factoryProductid},
+        </if>
+        <if test="packid != null and packid != ''">
+            件数 = #{quantity},
+        </if>
+        <if test="packid != null and packid != ''">
+            炉号 = #{stoveNum},
+        </if>
+        <if test="packid != null and packid != ''">
+            机组 = #{machineId},
+        </if>
+        <if test="packid != null and packid != ''">
+            质量等级 = #{qualityGradeName},
+        </if>
+        <if test="packid != null and packid != ''">
+            收货单位代号 = #{consigneeId},
+        </if>
+        <if test="packid != null and packid != ''">
+            收货单位名称 = #{consigneeName},
+        </if>
+        <if test="packid != null and packid != ''">
+            收货备注 = #{consigneeRemark},
+        </if>
+        <if test="packid != null and packid != ''">
+            客户零件号 = #{partid},
+        </if>
+        <if test="packid != null and packid != ''">
+            检查员 = #{confirmPerson},
+        </if>
+        <if test="packid != null and packid != ''">
+            净重 = #{factoryProductid},
+        </if>
+        <if test="packid != null and packid != ''">
+            钢厂资源号 = #{packid},
+        </if>
+        <if test="packid != null and packid != ''">
+            毛重 = #{factoryProductid},
+        </if>
+        <if test="packid != null and packid != ''">
+            堆垛托盘号 = #{factoryProductid},
         </if>
 
-                捆包卷数 = #{asdf},
-                堆垛区 = #{asdf},
-                产品外径 = #{asdf},
-                产品内径 = #{asdf},
-                产品宽度 = #{asdf},
-                品名 = #{asdf},
-                标准 = #{asdf},
-                规格 = #{asdf},
-                牌号 = #{asdf},
-                毛重增加 = #{asdf},
-                件数 = #{asdf},
-                炉号 = #{asdf},
-                机组 = #{asdf},
-                质量等级 = #{asdf},
-                收货单位代号 = #{asdf},
-                收货单位名称 = #{asdf},
-                收货备注 = #{asdf},
-                客户零件号 = #{asdf},
-                客户零件名称 = #{asdf},
-                检查员 = #{asdf},
-                净重 = #{asdf},
-                钢厂资源号 = #{asdf},
-                毛重 = #{asdf},
-                堆垛托盘号 = #{asdf}
+            捆包号 = #{packid}
 
-            where 捆包号 = #{asdf}
+
+            where 捆包号 = #{asdf}-->
 
 
 
 
-        /*UPDATE productinfo
+        UPDATE productinfo
         SET packId = #{packId},
         spec = #{spec},
         productTypeId = #{productTypeId},
@@ -123,11 +161,14 @@
         putinWeight = #{putinWeight},
         mwrapid = #{mwrapid},
         confirmPerson = #{confirmPerson}
-        WHERE partId = #{partId}*/
+        WHERE partId = #{partId}
     </update>
 
-    <select id="queryPartPackList" resultMap="BaseResultMap">
---         select * from productInfo
-        select 钢卷号,日期, 时间,母卷号, 并包号, 捆包卷数, 堆垛区, 产品外径, 产品内径, 产品宽度, 品名, 标准, 规格, 牌号, 毛重增加, 件数, 炉号, 机组, 质量等级, 收货单位代号, 收货单位名称, 收货备注, 客户零件号, 客户零件名称, 检查员, 净重, 捆包号, 钢厂资源号, 毛重, 堆垛托盘号 from "宝钢数据库表"
+    <select id="queryPartPackList" parameterType="java.lang.String" resultMap="BaseResultMap">
+         select * from productInfo
+--         select 钢卷号,日期, 时间,母卷号, 并包号, 捆包卷数, 堆垛区, 产品外径, 产品内径, 产品宽度, 品名, 标准, 规格, 牌号, 毛重增加, 件数, 炉号, 机组, 质量等级, 收货单位代号, 收货单位名称, 收货备注, 客户零件号, 客户零件名称, 检查员, 净重, 捆包号, 钢厂资源号, 毛重, 堆垛托盘号 from "宝钢数据库表"
+        <!--<if test="partId != null and partId != ''">
+        where 捆包号 = #{partId}
+        </if>-->
     </select>
 </mapper>

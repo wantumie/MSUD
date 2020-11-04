@@ -10,15 +10,12 @@ import com.example.demo.entity.ProductionOrderInfo;
 import com.example.demo.entity.User;
 import com.example.demo.service.TestService;
 import com.example.demo.util.ExportExcelUtil;
-import com.example.demo.util.RSAutil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -123,6 +120,12 @@ public class TestServiceImpl implements TestService {
         return list;
     }
 
+    @Override
+    public List<Map> queryPartList() {
+        List<Map> list = testDao.queryPartList();
+        return list;
+    }
+
     @Autowired
     ExportExcelUtil exportExcelUtil;
 
@@ -147,6 +150,7 @@ public class TestServiceImpl implements TestService {
      * @param productionOrderCode
      * @return
      */
+    //http://10.30.91.76/:8088/gmsc-new-service/services/GmscWebService?wsdl
     public String queryDetail(String segNo, String productionOrderCode){
         ProductionOrderInfo productionOrderInfo = new ProductionOrderInfo();
         productionOrderInfo.setSegNo(segNo);
@@ -267,10 +271,11 @@ public class TestServiceImpl implements TestService {
     }
 
 
-    public String queryPartPackInfoList(){
-        List<ProductInfoMap> list = partPackDao.queryPartPackList();
+    public List<ProductInfoMap> queryPartPackInfoList(String packId){
+        List<ProductInfoMap> list = partPackDao.queryPartPackList(packId);
         JSONArray array = JSONArray.parseArray(JSON.toJSONString(list));
 //        JSONObject jsonObject = (JSONObject) JSON.toJSON(list);
-        return array.toJSONString();
+//        return array.toJSONString();
+        return list;
     }
 }
