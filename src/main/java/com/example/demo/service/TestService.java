@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.entity.ProductInfoMap;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,13 @@ public interface TestService {
 
     List<Map> queryAllList();
 
-    List<Map> queryPartList();
+    List<Map> queryPartList(String partId);
+
+    List<Map> queryPartinfo(String partId);
+
+    void updatePartinfo(String partId, String spec);
+
+
 
     String queryDetail(String segNo, String productionOrderCode);
 

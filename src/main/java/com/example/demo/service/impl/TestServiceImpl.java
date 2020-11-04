@@ -121,9 +121,23 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public List<Map> queryPartList() {
-        List<Map> list = testDao.queryPartList();
+    public List<Map> queryPartList(String partId) {
+        List<Map> list = testDao.queryPartList(partId);
         return list;
+    }
+
+    @Override
+    public List<Map> queryPartinfo(String partId) {
+        List<Map> list = testDao.queryPartinfo(partId);
+        return list;
+    }
+
+    @Override
+    public void updatePartinfo(String partId, String spec) {
+        ProductInfoMap productInfoMap = new ProductInfoMap();
+        productInfoMap.setPartid(partId);
+        productInfoMap.setSpec(spec);
+        testDao.updatePartinfo(productInfoMap);
     }
 
     @Autowired

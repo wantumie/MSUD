@@ -109,7 +109,7 @@
         <td th:text="${product.shopsign}"></td>
         <td th:text="${product.packId}"></td>
         <td>
-            <a class="link" href="javascript:void(0)" onclick="updateProduct('${product.partId}')">修改</a>
+            <a class="link" href="javascript:void(0)" onclick="updateInit('${product.partId}')" >修改</a>
             <!--<a class="link">删除</a>-->
         </td>
     </tr>
@@ -127,7 +127,7 @@
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text" >姓名</span>
-                            <input type="text" class="form-control" aria-describedby="name1" id="partId">
+                            <input type="text" class="form-control" aria-describedby="name1" id="partId" >
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -146,7 +146,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button data-dismiss="modal" type="button" class="btn-primary">确定</button>
+                <button data-dismiss="modal" type="button" class="btn-primary" href="javascript:void(0)" onclick="updateProduct('${product.partId}')">确定</button>
                 <button data-dismiss="modal" type="button" class="btn-default">取消</button>
             </div>
         </div>
@@ -156,22 +156,40 @@
 <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 
-    function updateProduct(id) {
+    function updateInit(id) {
+        // var partId = $("#partId").val();
+        alert(id);
         $('#newAddModal').modal('show');
         $.ajax({
-            url: '/update',
-            data : {id:id},
+            url: '/queryInfo',
+            data : {"id":partId},
             dataType: "json",
             success:function (result) {
                 if (result != null && result.length > 0){
                     for (var i=0;i<result.length;i++){
-                        partId.push(result[i].partId);
-                        spec.push(result[i].spec);
+                        $('#partId').val(result[i].partId);
+                        $('#spec').val(result[i].spec);
                     }
                 }
                     }
         });
 
+    }
+    
+    function updateProduct() {
+
+        var partId = $("#partId").val();    // 获取id为username的<input>框数据
+        var spec = $("#spec").val();    // 获取id为password的<input>框数据
+        $.ajax({
+            url: '/updateInfo',
+            data : {"partId":partId, "spec":spec},
+            dataType: "json",
+            success:function (result) {
+                if (result.eq("200")){
+                    alert("修改成功！")
+                }
+            }
+        });
     }
 </script>
 </body>

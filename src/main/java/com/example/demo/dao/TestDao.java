@@ -13,7 +13,9 @@ public interface TestDao {
 
     List<Map> queryAllList();
 
-    ProductInfoMap queryPartinfo(String packId);
+    List<Map>  queryPartinfo(String packId);
 
-    List<Map> queryPartList();
+    List<Map> queryPartList(String packId);
+
+    void updatePartinfo(ProductInfoMap productInfoMap);
 }

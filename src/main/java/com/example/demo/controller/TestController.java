@@ -56,9 +56,9 @@ public class TestController {
         return name;
     }
     @RequestMapping("/list")
-    public ModelAndView queryAllList(){
+    public ModelAndView queryAllList(String partId){
         ModelAndView mv=new ModelAndView();
-        List<Map> list = testService.queryPartList();
+        List<Map> list = testService.queryPartList(partId);
         mv.addObject("newText","你好，Thymeleaf！");
         mv.addObject("gender","1");
         mv.addObject("productList",list);
@@ -70,13 +70,26 @@ public class TestController {
 
     }
 
-    @RequestMapping("/update")
-    public List<Map> update(String id){
+    @RequestMapping("/queryInfo")
+    public List<Map> queryInfo(String id){
         ModelAndView mv=new ModelAndView();
-        List<Map> list = testService.queryPartList();
-
+        List<Map> list = testService.queryPartinfo(id);
+        System.out.println("==asd=fasd");
         return list;
+    }
 
+    @RequestMapping("/updateInfo")
+    public String updateInfo(String partId, String spec){
+        ModelAndView mv=new ModelAndView();
+        System.out.println("数据修改");
+        try {
+            testService.updatePartinfo(partId, spec);
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("更新报错");
+        }
+
+        return "200";
     }
 
     @GetMapping(value = "/excel")
