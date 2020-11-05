@@ -18,4 +18,6 @@ public interface TestDao {
     List<Map> queryPartList(String packId);
 
     void updatePartinfo(ProductInfoMap productInfoMap);
+
+    void insertPartinfo(ProductInfoMap productInfoMap);
 }

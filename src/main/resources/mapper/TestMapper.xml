@@ -26,4 +26,13 @@
              where partId = #{partId}
          </if>
     </select>
+
+    <insert id="insertPartinfo" parameterType="com.example.demo.entity.ProductInfoMap">
+        /*INSERT INTO productinfo(packId, spec, productTypeId, shopsign, quantity, qualityGradeName, confirmDate, machineId, productTypeName, packingTypeId, factoryProductid, unitedPackId, partId, putinWeight, mwrapid, confirmPerson, grossWeight, netWeight, deep, width, length)
+        VALUES ( #{packid}, #{spec}, #{productTypeId}, #{shopsign}, #{quantity}, #{qualityGradeNam}, #{confirmDate}, #{machineId}, #{productTypeName}, #{packingTypeId}, #{factoryProductid}, #{unitedPackId}, #{partId}, #{putinWeight}, #{mwrapid}, #{confirmPerson}, #{grossWeight}, #{netWeight}, #{deep}, #{width}, #{length});
+*/
+        INSERT INTO productinfo(partId, spec)
+        VALUES ( #{partid}, #{spec});
+
+        </insert>
 </mapper>

@@ -48,19 +48,19 @@ public class PartPackController {
     }
 
     @RequestMapping("/querypartpacklist")
-    public ModelAndView queryList (String packid) {
-//        R r = new R();
+    public R queryList (String packid) {
+        R r = new R();
 
         ModelAndView mv = new ModelAndView();
 
         List<ProductInfoMap> productInfoList = testService.queryPartPackInfoList(packid);
-//        r.setResultCode(200);
-//        r.setResultMsg("查询成功！");
-//        r.setResultInfo(jsonStr);
-        mv.addObject("productInfoList", productInfoList);
-        mv.setViewName("/index.html");
+        r.setResultCode(200);
+        r.setResultMsg("查询成功！");
+        r.setResultInfo(productInfoList);
+//        mv.addObject("productInfoList", productInfoList);
+//        mv.setViewName("/index.html");
 
-        return mv;
+        return r;
     }
 
 

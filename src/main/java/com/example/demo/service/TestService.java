@@ -33,4 +33,5 @@ public interface TestService {
     List<ProductInfoMap> queryPartPackInfoList(String packId);
 
 
+    void insertPartinfo(String partId, String spec);
 }

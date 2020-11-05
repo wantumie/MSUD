@@ -21,6 +21,7 @@ public class ProductInfoMap {
     private String factoryProductid;//钢厂资源号
 
     private String spec;//规格
+    private String productTypeId;
     private String productTypeName;//品名
     private String shopsign;//牌号
     private String quantity;//件数

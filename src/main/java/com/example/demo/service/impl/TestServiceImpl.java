@@ -11,6 +11,8 @@ import com.example.demo.entity.User;
 import com.example.demo.service.TestService;
 import com.example.demo.util.ExportExcelUtil;
 import lombok.extern.slf4j.Slf4j;
+//import org.apache.cxf.endpoint.Client;
+//import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -140,6 +142,14 @@ public class TestServiceImpl implements TestService {
         testDao.updatePartinfo(productInfoMap);
     }
 
+    @Override
+    public void insertPartinfo(String partId, String spec) {
+        ProductInfoMap productInfoMap = new ProductInfoMap();
+        productInfoMap.setPartid(partId);
+        productInfoMap.setSpec(spec);
+        testDao.insertPartinfo(productInfoMap);
+    }
+
     @Autowired
     ExportExcelUtil exportExcelUtil;
 
@@ -171,6 +181,22 @@ public class TestServiceImpl implements TestService {
         productionOrderInfo.setProductionOrderCode(productionOrderCode);
         String productionOrderInfoObject = JSONObject.toJSONString(productionOrderInfo);
         String jsonObject = restTemplate.postForObject("http://10.30.184.236:80/LINKS/queryDetail", productionOrderInfoObject, String.class);
+
+        ////////////////////////////////////////////////////////////
+//        JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+//        Client client = dcf.createClient("http://10.30.91.76/:8088/gmsc-new-service/services/GmscWebService?wsdl");
+//        // client.getOutInterceptors().add(new ClientLoginInterceptor(USER_NAME,PASS_WORD));
+//        Object[] objects = new Object[0];
+//        try {
+//            // invoke("方法名",参数1,参数2,参数3....);
+////            objects = client.invoke("webService", "传递的参数");
+//            objects = client.invoke("queryDetail", "productionOrderInfoObject");
+//            System.out.println("返回数据:" + objects[0]);
+//        } catch (java.lang.Exception e) {
+//            e.printStackTrace();
+//        }
+
+        ////////////////////////////////////////////////////////////
         log.info("生产工单明细表--接口返回数据："+jsonObject);
 
         JSONObject resultJSONObject = JSONObject.parseObject(jsonObject);
@@ -245,6 +271,23 @@ public class TestServiceImpl implements TestService {
         String productionOrderInfoObject = JSONObject.toJSONString(productionOrderInfo);
         String jsonObject = restTemplate.postForObject("http://10.30.184.236:80/LINKS/queryProduct", productionOrderInfoObject, String.class);
 
+
+        ////////////////////////////////////////////////////////////
+//        JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+//        Client client = dcf.createClient("http://10.30.91.76/:8088/gmsc-new-service/services/GmscWebService?wsdl");
+//        // client.getOutInterceptors().add(new ClientLoginInterceptor(USER_NAME,PASS_WORD));
+//        Object[] objects = new Object[0];
+//        try {
+//            // invoke("方法名",参数1,参数2,参数3....);
+////            objects = client.invoke("webService", "传递的参数");
+//            objects = client.invoke("queryProduct", "productionOrderInfoObject");
+//            System.out.println("返回数据:" + objects[0]);
+//        } catch (java.lang.Exception e) {
+//            e.printStackTrace();
+//        }
+
+        ////////////////////////////////////////////////////////////
+
         JSONObject resultJSONObject = JSONObject.parseObject(jsonObject);
         JSONObject productInfo = resultJSONObject.getJSONObject("productInfo");
         String packid = productInfo.getString("packid");
@@ -292,4 +335,6 @@ public class TestServiceImpl implements TestService {
 //        return array.toJSONString();
         return list;
     }
+
+
 }

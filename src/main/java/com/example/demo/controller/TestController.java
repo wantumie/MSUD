@@ -72,24 +72,35 @@ public class TestController {
 
     @RequestMapping("/queryInfo")
     public List<Map> queryInfo(String id){
-        ModelAndView mv=new ModelAndView();
         List<Map> list = testService.queryPartinfo(id);
-        System.out.println("==asd=fasd");
         return list;
     }
 
-    @RequestMapping("/updateInfo")
-    public String updateInfo(String partId, String spec){
-        ModelAndView mv=new ModelAndView();
-        System.out.println("数据修改");
+    @RequestMapping("/insertInfo")
+    public String insertInfo(String partId, String spec){
+        String code = "0000";
         try {
-            testService.updatePartinfo(partId, spec);
+            testService.insertPartinfo(partId, spec);
+            code = "200";
         }catch (Exception e){
             e.printStackTrace();
             System.out.println("更新报错");
         }
 
-        return "200";
+        return code;
+    }
+    @RequestMapping("/updateInfo")
+    public String updateInfo(String partId, String spec){
+        String code = "0000";
+        try {
+            testService.updatePartinfo(partId, spec);
+            code = "200";
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("更新报错");
+        }
+
+        return code;
     }
 
     @GetMapping(value = "/excel")

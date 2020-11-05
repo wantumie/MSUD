@@ -43,6 +43,7 @@
             padding:5px 20px;
             text-align: center;
             margin-right:5px;
+            background:#ddd;
         }
         .link{
             color:#80bdff;
@@ -80,10 +81,10 @@
     <p th:case="*">其他</p>
 </div>-->
 <div style="text-align: center;padding:15px;border:1px solid #333;margin-bottom:30px;">
-    名称&nbsp;<input class="inputStyle">
+    名称&nbsp;<input class="inputStyle" id="queryPartId">
     <p style="text-align: center;margin-top:20px;">
-        <button class="btn">查询</button>
-        <button class="btn">新增</button>
+        <button class="btn" onclick="queryInit()">查询</button>
+        <button class="btn" onclick="addInit()">新增</button>
     </p>
 </div>
 <!-- 　　　　each　　　　其中，iterStat参数为状态变量，常用的属性有　　　　index 迭代下标，从0开始　　　　count 迭代下标，从1开始　　　　size 迭代元素的总量　　　　current 当前元素
@@ -105,12 +106,14 @@
         <td th:text="${product.partId}"></td>
         <td th:text="${product.spec}"></td>
         <td th:text="${product.quantity}"></td>
-        <td th:text="${product.productTypeId}"></td>
+        <td th:text="${product.productTypeid}"></td>
         <td th:text="${product.shopsign}"></td>
         <td th:text="${product.packId}"></td>
         <td>
-            <a class="link" href="javascript:void(0)" onclick="updateInit('${product.partId}')" >修改</a>
+            <a class="link" th:data-id="${product.partId}"  onclick="updateInit(this.getAttribute('data-id'))" >修改</a>
             <!--<a class="link">删除</a>-->
+
+
         </td>
     </tr>
     </tbody>
@@ -121,6 +124,43 @@
         <div class="modal-content" >
             <div class="modal-header" >
                 <h4 class="modal-title">新增</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >姓名</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="partId1" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >姓名</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="spec1">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" id="quantity">姓名</span>
+                            <input type="text" class="form-control" aria-describedby="name1">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" type="button" class="btn-primary" href="javascript:void(0)" onclick="insertProduct()">确定</button>
+                <button data-dismiss="modal" type="button" class="btn-default">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="updateModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" >
+            <div class="modal-header" >
+                <h4 class="modal-title">修改</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -146,7 +186,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button data-dismiss="modal" type="button" class="btn-primary" href="javascript:void(0)" onclick="updateProduct('${product.partId}')">确定</button>
+                <button data-dismiss="modal" type="button" class="btn-primary" href="javascript:void(0)" onclick="updateProduct('${product.partId}')">修改</button>
                 <button data-dismiss="modal" type="button" class="btn-default">取消</button>
             </div>
         </div>
@@ -154,26 +194,62 @@
 </div>
 <script type="text/javascript" src="lib/jquery/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script>
+
+</script>
 <script type="text/javascript">
 
-    function updateInit(id) {
-        // var partId = $("#partId").val();
+
+    function queryInit() {
+
+        var queryPartId  = $("#queryPartId").val();
+
+
+        window.location.href="/list?partId="+queryPartId
+
+    }
+
+    function  del(id) {
         alert(id);
+    }
+    function addInit() {
         $('#newAddModal').modal('show');
+    }
+
+    function updateInit(id) {
+        console.log(id);
+        // var partId = $("#partId").val();
+        $('#updateModal').modal('show');
         $.ajax({
             url: '/queryInfo',
-            data : {"id":partId},
+            data : {"id":id},
             dataType: "json",
             success:function (result) {
                 if (result != null && result.length > 0){
                     for (var i=0;i<result.length;i++){
                         $('#partId').val(result[i].partId);
                         $('#spec').val(result[i].spec);
+
                     }
                 }
                     }
         });
 
+    }
+
+    function insertProduct() {
+        var partId = $("#partId").val();    // 获取id为username的<input>框数据
+        var spec = $("#spec").val();    // 获取id为password的<input>框数据
+        $.ajax({
+            url: '/insertInfo',
+            data : {"partId":partId, "spec":spec},
+            dataType: "json",
+            success:function (result) {
+                if (result.eq("200")){
+                    alert("修改成功！")
+                }
+            }
+        });
     }
     
     function updateProduct() {
@@ -185,8 +261,18 @@
             data : {"partId":partId, "spec":spec},
             dataType: "json",
             success:function (result) {
-                if (result.eq("200")){
-                    alert("修改成功！")
+                console.log(result);
+                if (result =="200"){
+                    /*var back = confirm('是否继续操作');
+                    if(back){
+                        console.log(11);
+                    }else{
+                        console.log(2)
+                    }*/
+                    alert("修改成功！");
+                    /*location.href = "/list";*/
+                    window.location.reload();
+
                 }
             }
         });

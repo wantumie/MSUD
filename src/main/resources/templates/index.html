@@ -83,7 +83,7 @@
     名称&nbsp;<input class="inputStyle">
     <p style="text-align: center;margin-top:20px;">
         <button class="btn">查询</button>
-        <button class="btn">新增</button>
+        <button class="btn" href="javascript:void(0)" onclick="addInit()">新增</button>
     </p>
 </div>
 <!-- 　　　　each　　　　其中，iterStat参数为状态变量，常用的属性有　　　　index 迭代下标，从0开始　　　　count 迭代下标，从1开始　　　　size 迭代元素的总量　　　　current 当前元素
@@ -105,12 +105,14 @@
         <td th:text="${product.partId}"></td>
         <td th:text="${product.spec}"></td>
         <td th:text="${product.quantity}"></td>
-        <td th:text="${product.productTypeId}"></td>
+        <td th:text="${product.productTypeid}"></td>
         <td th:text="${product.shopsign}"></td>
         <td th:text="${product.packId}"></td>
         <td>
-            <a class="link" href="javascript:void(0)" onclick="updateProduct()">修改</a>
-            <a class="link">删除</a>
+            <a class="link" th:data-id="${product.partId}"  onclick="updateInit(this.getAttribute('data-id'))" >修改</a>
+            <!--<a class="link">删除</a>-->
+
+
         </td>
     </tr>
     </tbody>
@@ -126,19 +128,19 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="input-group">
-                            <span class="input-group-text" id="name1">姓名</span>
-                            <input type="text" class="form-control" aria-describedby="name1">
+                            <span class="input-group-text" >姓名</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="partId1" >
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <span class="input-group-text" id="name1">姓名</span>
-                            <input type="text" class="form-control" aria-describedby="name1">
+                            <span class="input-group-text" >姓名</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="spec1">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <span class="input-group-text" id="name1">姓名</span>
+                            <span class="input-group-text" id="quantity">姓名</span>
                             <input type="text" class="form-control" aria-describedby="name1">
                         </div>
                     </div>
@@ -146,7 +148,44 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button data-dismiss="modal" type="button" class="btn-primary">确定</button>
+                <button data-dismiss="modal" type="button" class="btn-primary" href="javascript:void(0)" onclick="insertProduct()">确定</button>
+                <button data-dismiss="modal" type="button" class="btn-default">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="updateModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" >
+            <div class="modal-header" >
+                <h4 class="modal-title">修改</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >姓名</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="partId" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >姓名</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="spec">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" id="quantity">姓名</span>
+                            <input type="text" class="form-control" aria-describedby="name1">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" type="button" class="btn-primary" href="javascript:void(0)" onclick="updateProduct('${product.partId}')">修改</button>
                 <button data-dismiss="modal" type="button" class="btn-default">取消</button>
             </div>
         </div>
@@ -154,10 +193,81 @@
 </div>
 <script type="text/javascript" src="lib/jquery/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script>
+
+</script>
 <script type="text/javascript">
-    $('#newAddModal').modal('show');
+    function  del(id) {
+        alert(id);
+    }
+    function addInit() {
+        $('#updateModal').modal('show');
+    }
+
+    function updateInit(id) {
+        console.log(id);
+        // var partId = $("#partId").val();
+        $('#updateModal').modal('show');
+        $.ajax({
+            url: '/queryInfo',
+            data : {"id":id},
+            dataType: "json",
+            success:function (result) {
+                if (result != null && result.length > 0){
+                    for (var i=0;i<result.length;i++){
+                        $('#partId').val(result[i].partId);
+                        $('#spec').val(result[i].spec);
+                    }
+                }
+            }
+        });
+
+    }
+
+    function insertProduct() {
+        var partId = $("#partId").val();    // 获取id为username的<input>框数据
+        var spec = $("#spec").val();    // 获取id为password的<input>框数据
+        $.ajax({
+            url: '/insertInfo',
+            data : {"partId":partId, "spec":spec},
+            dataType: "json",
+            success:function (result) {
+                if (result.eq("200")){
+
+                    confirm(function(back){
+                        if(back){
+                            console.log(11);
+                        }else{
+                            console.log(2)
+                        }
+                    })
+                }
+            }
+        });
+    }
+
+    function updateProduct() {
+
+        var partId = $("#partId").val();    // 获取id为username的<input>框数据
+        var spec = $("#spec").val();    // 获取id为password的<input>框数据
+        $.ajax({
+            url: '/updateInfo',
+            data : {"partId":partId, "spec":spec},
+            dataType: "json",
+            success:function (result) {
+                if (result.eq("200")){
+
+                    confirm(function(back){
+                        if(back){
+                            console.log(11);
+                        }else{
+                            console.log(2)
+                        }
+                    })
+                }
+            }
+        });
+    }
 </script>
 </body>
-<!-- 引入静态资源 -->
-<script th:src="@{/js/jquery-1.9.1.min.js}" type="application/javascript"></script>
 </html>
