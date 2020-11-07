@@ -130,9 +130,14 @@ public class TestController {
     }
 
     @RequestMapping("/index")
-    public ModelAndView index(){
+    public ModelAndView index(String partId){
 
         ModelAndView mv = new ModelAndView();
+        List<Map> list = testService.queryPartList(partId);
+//        mv.addObject("newText","你好，Thymeleaf！");
+        mv.addObject("newText","你好，景林包装！");
+        mv.addObject("gender","1");
+        mv.addObject("productList",list);
         mv.setViewName("/index");
 
         return mv;
