@@ -92,23 +92,23 @@
 <table>
     <thead>
     <tr>
-        <th>id</th>
-        <th>username</th>
-        <th>password</th>
-        <th>created</th>
-        <th>description</th>
-        <th>packId</th>
+        <th>捆包号</th>
+        <th>规格</th>
+        <th>件数</th>
+        <th>包装工艺</th>
+        <th>牌号</th>
+        <th>零件号</th>
         <th>操作</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="product,iterStat : ${productList}">
-        <td th:text="${product.partId}"></td>
+        <td th:text="${product.packId}"></td>
         <td th:text="${product.spec}"></td>
         <td th:text="${product.quantity}"></td>
         <td th:text="${product.productTypeid}"></td>
         <td th:text="${product.shopsign}"></td>
-        <td th:text="${product.packId}"></td>
+        <td th:text="${product.partId}"></td>
         <td>
             <a class="link" th:data-id="${product.partId}"  onclick="updateInit(this.getAttribute('data-id'))" >修改</a>
             <!--<a class="link">删除</a>-->
@@ -166,19 +166,19 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="input-group">
-                            <span class="input-group-text" >姓名</span>
-                            <input type="text" class="form-control" aria-describedby="name1" id="partId" >
+                            <span class="input-group-text" >捆包号</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="packId" >
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <span class="input-group-text" >姓名</span>
+                            <span class="input-group-text" >规格</span>
                             <input type="text" class="form-control" aria-describedby="name1" id="spec">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <span class="input-group-text" id="quantity">姓名</span>
+                            <span class="input-group-text" id="quantity">件数</span>
                             <input type="text" class="form-control" aria-describedby="name1">
                         </div>
                     </div>

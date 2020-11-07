@@ -11,13 +11,14 @@ import com.example.demo.entity.User;
 import com.example.demo.service.TestService;
 import com.example.demo.util.ExportExcelUtil;
 import lombok.extern.slf4j.Slf4j;
-//import org.apache.cxf.endpoint.Client;
-//import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.namespace.QName;
 import java.util.*;
 
 /**
@@ -148,6 +149,57 @@ public class TestServiceImpl implements TestService {
         productInfoMap.setPartid(partId);
         productInfoMap.setSpec(spec);
         testDao.insertPartinfo(productInfoMap);
+    }
+
+    @Override
+    public String wsService() {
+
+        ////////////////////////////////////////////////////////////
+        JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+        Client client = dcf.createClient("http://127.0.0.1:8088/greet?wsdl");
+        // client.getOutInterceptors().add(new ClientLoginInterceptor(USER_NAME,PASS_WORD));
+        Object[] objects = new Object[0];
+        try {
+            // invoke("方法名",参数1,参数2,参数3....);
+//            objects = client.invoke("webService", "传递的参数");
+            objects = client.invoke("greeting", "productionOrderInfoObject");
+            System.out.println("返回数据:" + objects[0]);
+        } catch (java.lang.Exception e) {
+            e.printStackTrace();
+        }
+
+        ////////////////////////////////////////////////////////////
+
+
+
+        return null;
+    }
+
+
+    public String sendWsdl(Object obj) {
+        log.info("--------调用webservice接口begin-------");
+        // 创建动态客户端
+        JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+
+        //对方的wsdl地址
+        Client client = dcf.createClient("http://127.0.0.1:8088/greet?wsdl");
+        String json = null;
+        try {
+
+//            QName qName = new QName("http://xx.zygxsq.cn/", "getAlarmWs");                                                //*原文章链接：https://blog.csdn.net/qq_27471405/article/details/105275657     * 其他均为盗版，公众号：灵儿的笔记(zygxsq)
+            Object[] objects1= client.invoke("greeting", "aaa"); //参数1，参数2，参数3......按顺序放就看可以
+
+            json = JSONObject.toJSONString(objects1[0]);
+            System.out.println("返回数据:" + json.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.info("服务器断开连接，请稍后再试");
+        }
+        log.info("--------调用webservice接口end-------");
+        return json;
+
+
     }
 
     @Autowired
@@ -335,6 +387,8 @@ public class TestServiceImpl implements TestService {
 //        return array.toJSONString();
         return list;
     }
+//http://127.0.0.1:8088/greet?wsdl
+
 
 
 }

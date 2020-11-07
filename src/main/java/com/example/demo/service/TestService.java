@@ -34,4 +34,6 @@ public interface TestService {
 
 
     void insertPartinfo(String partId, String spec);
+
+    String wsService();
 }

@@ -59,7 +59,8 @@ public class TestController {
     public ModelAndView queryAllList(String partId){
         ModelAndView mv=new ModelAndView();
         List<Map> list = testService.queryPartList(partId);
-        mv.addObject("newText","你好，Thymeleaf！");
+//        mv.addObject("newText","你好，Thymeleaf！");
+        mv.addObject("newText","你好，景林包装！");
         mv.addObject("gender","1");
         mv.addObject("productList",list);
 //        if(list!=null) {
@@ -121,6 +122,8 @@ public class TestController {
 
     @RequestMapping("/getversion")
     public String getversion(){
+
+        testService.wsService();
 
 
         return "20201101";
