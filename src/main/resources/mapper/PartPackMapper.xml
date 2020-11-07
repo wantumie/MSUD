@@ -4,21 +4,21 @@
 <mapper namespace="com.example.demo.dao.PartPackDao">
     <resultMap id="BaseResultMap" type="com.example.demo.entity.ProductInfoMap">
 <!--        <result column="id" jdbcType="INTEGER" property="id" />-->
-        <result column="钢卷号" property="factoryProductid" />
+<!--        <result column="钢卷号" property="factoryProductid" />-->
         <result column="日期" property="confirmDate" />
-        <result column="时间" property="factoryProductid" />
-        <result column="母卷号" property="mwrapId" />
+<!--        <result column="时间" property="factoryProductid" />-->
+        <result column="母卷号" property="mwrapid" />
         <result column="并包号" property="unitedPackid" />
-        <result column="捆包卷数" property="factoryProductid" />
-        <result column="堆垛区" property="factoryProductid" />
+<!--        <result column="捆包卷数" property="factoryProductid" />-->
+<!--        <result column="堆垛区" property="factoryProductid" />-->
         <result column="产品外径" property="outDiameter" />
         <result column="产品内径" property="innerDiameter" />
         <result column="产品宽度" property="outWidth" />
         <result column="品名" property="productTypeName" />
-        <result column="标准" property="factoryProductid" />
+<!--        <result column="标准" property="factoryProductid" />-->
         <result column="规格" property="spec" />
         <result column="牌号" property="shopsign" />
-        <result column="毛重增加" property="factoryProductid" />
+<!--        <result column="毛重增加" property="factoryProductid" />-->
         <result column="件数" property="quantity" />
         <result column="炉号" property="stoveNum" />
         <result column="机组" property="machineId" />
@@ -26,126 +26,189 @@
         <result column="收货单位代号" property="consigneeId" />
         <result column="收货单位名称" property="consigneeName" />
         <result column="收货备注" property="consigneeRemark" />
-        <result column="客户零件号" property="partid" />
-        <result column="客户零件名称" property="factoryProductid" />
+        <result column="客户零件号" property="partId" />
+<!--        <result column="客户零件名称" property="factoryProductid" />-->
         <result column="检查员" property="confirmPerson" />
-        <result column="净重" property="factoryProductid" />
-        <result column="捆包号" property="packid" />
-        <result column="钢厂资源号" property="factoryProductid" />
-        <result column="堆垛托盘号" property="factoryProductid" />
+<!--        <result column="净重" property="factoryProductid" />-->
+        <result column="捆包号" property="packId" />
+<!--        <result column="钢厂资源号" property="factoryProductid" />-->
+<!--        <result column="堆垛托盘号" property="factoryProductid" />-->
     </resultMap>
 
 
     <select id="queryPartPack" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select * from productInfo where packId = #{packId}
+        select * from productInfo where packId = #{packid}
     </select>
 
     <insert id="insertPartPack" parameterType="com.example.demo.entity.ProductInfoMap">
-        INSERT INTO productinfo(id, packId, spec, productTypeId, shopsign, quantity, qualityGradeName, confirmDate, machineId, productTypeName, packingTypeId, factoryProductid, unitedPackId, partId, putinWeight, mwrapid, confirmPerson, grossWeight, netWeight, deep, width, length)
+       <!-- INSERT INTO productinfo(id, packId, spec, productTypeId, shopsign, quantity, qualityGradeName, confirmDate, machineId, productTypeName, packingTypeId, factoryProductid, unitedPackId, partId, putinWeight, mwrapid, confirmPerson, grossWeight, netWeight, deep, width, length)
                             VALUES (#{id}, #{packId}, #{spec}, #{productTypeId}, #{shopsign}, #{quantity}, #{qualityGradeNam}, #{confirmDate}, #{machineId}, #{productTypeName}, #{packingTypeId}, #{factoryProductid}, #{unitedPackId}, #{partId}, #{putinWeight}, #{mwrapid}, #{confirmPerson}, #{grossWeight}, #{netWeight}, #{deep}, #{width}, #{length});
-
-        /*INSERT INTO "宝钢数据库表" VALUES (#{packid}, #{confirmDate}, #{factoryProductid}, #{mwrapId}, #{unitedPackid}, #{factoryProductid}, #{factoryProductid}, #{outDiameter}, #{innerDiameter},
+-->
+INSERT INTO [dbo].[宝钢数据库表]
+           ([钢卷号]
+           ,[日期]
+           ,[时间]
+           ,[母卷号]
+           ,[并包号]
+           ,[捆包卷数]
+           ,[堆垛区]
+           ,[产品外径]
+           ,[产品内径]
+           ,[产品宽度]
+           ,[品名]
+           ,[标准]
+           ,[规格]
+           ,[牌号]
+           ,[毛重增加]
+           ,[件数]
+           ,[炉号]
+           ,[机组]
+           ,[质量等级]
+           ,[收货单位代号]
+           ,[收货单位名称]
+           ,[收货备注]
+           ,[客户零件号]
+           ,[客户零件名称]
+           ,[检查员]
+           ,[净重]
+           ,[捆包号]
+           ,[钢厂资源号]
+           ,[毛重]
+           ,[堆垛托盘号])
+     VALUES
+           (5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5
+           ,5)
+        <!--INSERT INTO "宝钢数据库表" VALUES (#{packid}, #{confirmDate}, #{factoryProductid}, #{mwrapId}, #{unitedPackid}, #{factoryProductid}, #{factoryProductid}, #{outDiameter}, #{innerDiameter},
         #{outWidth}, #{productTypeName}, #{factoryProductid}, #{spec}, #{shopsign}, #{factoryProductid}, #{quantity}, #{stoveNum}, #{machineId}, #{qualityGradeName}, #{consigneeId}, #{consigneeName}, #{consigneeRemark},
-        #{partid}, #{factoryProductid}, #{confirmPerson}, #{factoryProductid}, #{packid}, #{factoryProductid}, #{factoryProductid})
-   */ </insert>
+        #{partid}, #{factoryProductid}, #{confirmPerson}, #{factoryProductid}, #{packid}, #{factoryProductid}, #{factoryProductid})-->
+    </insert>
 
     <update id="updatePartPack" parameterType="com.example.demo.entity.ProductInfoMap">
-        <!--update "宝钢数据库表"
+        update "宝钢数据库表"
             set
-            <if test="packid != null and packid != ''">
-                钢卷号 = #{packid},
-            </if>
+            <!--<if test="packId != null and packId != ''">
+                钢卷号 = #{packId},
+            </if>-->
         <if test="confirmDate != null and confirmDate != ''">
             日期 = #{confirmDate},
         </if>
-        <if test="packid != null and packid != ''">
-            时间 = #{asdf},
-        </if>
-        <if test="mwrapId != null and mwrapId != ''">
-            母卷号 = #{mwrapId},
+<!--        <if test="asdf != null and asdf != ''">-->
+<!--            时间 = #{asdf},-->
+<!--        </if>-->
+        <if test="mwrapid != null and mwrapid != ''">
+            母卷号 = #{mwrapid},
         </if>
         <if test="unitedPackid != null and unitedPackid != ''">
-            并包号 = #{asdf},
+            并包号 = #{unitedPackid},
         </if>
-        <if test="factoryProductid != null and factoryProductid != ''">
+        <!--<if test="factoryProductid != null and factoryProductid != ''">
             捆包卷数 = #{factoryProductid},
         </if>
         <if test="packid != null and packid != ''">
             堆垛区 = #{factoryProductid},
-        </if>
-        <if test="packid != null and packid != ''">
+        </if>-->
+        <if test="outDiameter != null and outDiameter != ''">
             产品外径 = #{outDiameter},
         </if>
-        <if test="packid != null and packid != ''">
+        <if test="innerDiameter != null and innerDiameter != ''">
             产品内径 = #{innerDiameter},
         </if>
-        <if test="packid != null and packid != ''">
+        <if test="outWidth != null and outWidth != ''">
             产品宽度 = #{outWidth},
         </if>
-        <if test="packid != null and packid != ''">
+        <if test="productTypeName != null and productTypeName != ''">
             品名 = #{productTypeName},
         </if>
-        <if test="packid != null and packid != ''">
+        <if test="factoryProductid != null and factoryProductid != ''">
             标准 = #{factoryProductid},
         </if>
-        <if test="packid != null and packid != ''">
+        <if test="spec != null and spec != ''">
             规格 = #{spec},
         </if>
-        <if test="packid != null and packid != ''">
+        <if test="shopsign != null and shopsign != ''">
             牌号 = #{shopsign},
         </if>
-        <if test="packid != null and packid != ''">
+        <if test="factoryProductid != null and factoryProductid != ''">
             毛重增加 = #{factoryProductid},
         </if>
-        <if test="packid != null and packid != ''">
+        <if test="quantity != null and quantity != ''">
             件数 = #{quantity},
         </if>
-        <if test="packid != null and packid != ''">
+        <if test="stoveNum != null and stoveNum != ''">
             炉号 = #{stoveNum},
         </if>
-        <if test="packid != null and packid != ''">
+        <if test="machineId != null and machineId != ''">
             机组 = #{machineId},
         </if>
-        <if test="packid != null and packid != ''">
+        <if test="qualityGradeName != null and qualityGradeName != ''">
             质量等级 = #{qualityGradeName},
         </if>
-        <if test="packid != null and packid != ''">
+        <if test="consigneeId != null and consigneeId != ''">
             收货单位代号 = #{consigneeId},
         </if>
-        <if test="packid != null and packid != ''">
+        <if test="consigneeName != null and consigneeName != ''">
             收货单位名称 = #{consigneeName},
         </if>
-        <if test="packid != null and packid != ''">
+        <if test="consigneeRemark != null and consigneeRemark != ''">
             收货备注 = #{consigneeRemark},
         </if>
-        <if test="packid != null and packid != ''">
-            客户零件号 = #{partid},
+        <if test="partId != null and partId != ''">
+            客户零件号 = #{partId},
         </if>
-        <if test="packid != null and packid != ''">
+        <if test="confirmPerson != null and confirmPerson != ''">
             检查员 = #{confirmPerson},
         </if>
-        <if test="packid != null and packid != ''">
-            净重 = #{factoryProductid},
+        <!--<if test="asdf != null and asdf != ''">
+            净重 = #{asdf},
+        </if>-->
+        <if test="factoryProductid != null and factoryProductid != ''">
+            钢厂资源号 = #{factoryProductid},
         </if>
-        <if test="packid != null and packid != ''">
-            钢厂资源号 = #{packid},
+       <!-- <if test="asdf != null and asdf != ''">
+            毛重 = #{asdf},
         </if>
-        <if test="packid != null and packid != ''">
-            毛重 = #{factoryProductid},
-        </if>
-        <if test="packid != null and packid != ''">
-            堆垛托盘号 = #{factoryProductid},
-        </if>
-
-            捆包号 = #{packid}
+        <if test="asdf != null and asdf != ''">
+            堆垛托盘号 = #{asdf},
+        </if>-->
 
 
-            where 捆包号 = #{asdf}-->
+        捆包号 = #{packId}
+
+
+            where 捆包号 = #{packId}
 
 
 
 
-        UPDATE productinfo
+        <!--UPDATE productinfo
         SET packId = #{packId},
         spec = #{spec},
         productTypeId = #{productTypeId},
@@ -161,14 +224,14 @@
         putinWeight = #{putinWeight},
         mwrapid = #{mwrapid},
         confirmPerson = #{confirmPerson}
-        WHERE partId = #{partId}
+        WHERE partId = #{partId}-->
     </update>
 
-    <select id="queryPartPackList" parameterType="java.lang.String" resultMap="BaseResultMap">
-         select * from productInfo
---         select 钢卷号,日期, 时间,母卷号, 并包号, 捆包卷数, 堆垛区, 产品外径, 产品内径, 产品宽度, 品名, 标准, 规格, 牌号, 毛重增加, 件数, 炉号, 机组, 质量等级, 收货单位代号, 收货单位名称, 收货备注, 客户零件号, 客户零件名称, 检查员, 净重, 捆包号, 钢厂资源号, 毛重, 堆垛托盘号 from "宝钢数据库表"
-        <!--<if test="partId != null and partId != ''">
-        where 捆包号 = #{partId}
-        </if>-->
+    <select id="queryPartPackList" parameterType="String" resultMap="BaseResultMap">
+         /*select * from productInfo*/
+         select 钢卷号,日期, 时间,母卷号, 并包号, 捆包卷数, 堆垛区, 产品外径, 产品内径, 产品宽度, 品名, 标准, 规格, 牌号, 毛重增加, 件数, 炉号, 机组, 质量等级, 收货单位代号, 收货单位名称, 收货备注, 客户零件号, 客户零件名称, 检查员, 净重, 捆包号, 钢厂资源号, 毛重, 堆垛托盘号 from "宝钢数据库表"
+        <if test="packid != null and packid != ''">
+        where 捆包号 = #{packid}
+        </if>
     </select>
 </mapper>

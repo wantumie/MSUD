@@ -7,6 +7,7 @@ import com.example.demo.dao.PartPackDao;
 import com.example.demo.dao.TestDao;
 import com.example.demo.entity.ProductInfoMap;
 import com.example.demo.entity.ProductionOrderInfo;
+import com.example.demo.entity.R;
 import com.example.demo.entity.User;
 import com.example.demo.service.TestService;
 import com.example.demo.util.ExportExcelUtil;
@@ -138,7 +139,7 @@ public class TestServiceImpl implements TestService {
     @Override
     public void updatePartinfo(String partId, String spec) {
         ProductInfoMap productInfoMap = new ProductInfoMap();
-        productInfoMap.setPartid(partId);
+        productInfoMap.setPartId(partId);
         productInfoMap.setSpec(spec);
         testDao.updatePartinfo(productInfoMap);
     }
@@ -146,9 +147,10 @@ public class TestServiceImpl implements TestService {
     @Override
     public void insertPartinfo(String partId, String spec) {
         ProductInfoMap productInfoMap = new ProductInfoMap();
-        productInfoMap.setPartid(partId);
+        productInfoMap.setPartId(partId);
         productInfoMap.setSpec(spec);
-        testDao.insertPartinfo(productInfoMap);
+//        testDao.insertPartinfo(productInfoMap);
+        partPackDao.insertPartPack(productInfoMap);
     }
 
     @Override
@@ -220,152 +222,6 @@ public class TestServiceImpl implements TestService {
         }
     }
 
-    /**
-     * 生产工单明细表
-     * @param segNo
-     * @param productionOrderCode
-     * @return
-     */
-    //http://10.30.91.76/:8088/gmsc-new-service/services/GmscWebService?wsdl
-    public String queryDetail(String segNo, String productionOrderCode){
-        ProductionOrderInfo productionOrderInfo = new ProductionOrderInfo();
-        productionOrderInfo.setSegNo(segNo);
-        productionOrderInfo.setProductionOrderCode(productionOrderCode);
-        String productionOrderInfoObject = JSONObject.toJSONString(productionOrderInfo);
-        String jsonObject = restTemplate.postForObject("http://10.30.184.236:80/LINKS/queryDetail", productionOrderInfoObject, String.class);
-
-        ////////////////////////////////////////////////////////////
-//        JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
-//        Client client = dcf.createClient("http://10.30.91.76/:8088/gmsc-new-service/services/GmscWebService?wsdl");
-//        // client.getOutInterceptors().add(new ClientLoginInterceptor(USER_NAME,PASS_WORD));
-//        Object[] objects = new Object[0];
-//        try {
-//            // invoke("方法名",参数1,参数2,参数3....);
-////            objects = client.invoke("webService", "传递的参数");
-//            objects = client.invoke("queryDetail", "productionOrderInfoObject");
-//            System.out.println("返回数据:" + objects[0]);
-//        } catch (java.lang.Exception e) {
-//            e.printStackTrace();
-//        }
-
-        ////////////////////////////////////////////////////////////
-        log.info("生产工单明细表--接口返回数据："+jsonObject);
-
-        JSONObject resultJSONObject = JSONObject.parseObject(jsonObject);
-        JSONObject rmPartPackList = resultJSONObject.getJSONObject("rmPartPackList");//投料捆包信息
-        log.info("投料捆包信息--rmPartPackList："+rmPartPackList);
-        String packid = rmPartPackList.getString("packid");
-        String factoryProductId = rmPartPackList.getString("factoryProductId");
-        String spec = rmPartPackList.getString("spec");//规格
-        String productTypeName = rmPartPackList.getString("productTypeName");
-        String shopsign = rmPartPackList.getString("shopsign");
-        String mwrapid = rmPartPackList.getString("mwrapid");//母卷号
-        String stoveNum = rmPartPackList.getString("stoveNum");//炉号
-
-
-        //confirmList
-        JSONObject confirmList = resultJSONObject.getJSONObject("confirmList");
-        String confirmDate = confirmList.getString("confirmDate");
-        String confirmPerson = confirmList.getString("confirmPerson");//检验员（确认人）
-
-        //dataInfo
-        JSONObject dataInfo = resultJSONObject.getJSONObject("dataInfo");
-        String machineId = dataInfo.getString("machineId");//机组代码
-
-        //fmPartList
-        JSONObject fmPartList = resultJSONObject.getJSONObject("fmPartList");
-        String innerDiameter = fmPartList.getString("innerDiameter");//卷内径
-        String outWidth = fmPartList.getString("outWidth");//卷宽度(立放时的宽度)
-        String consigneeId = fmPartList.getString("consigneeId");//收货单位编码
-        String consigneeName = fmPartList.getString("consigneeName");//收货单位名称
-        String consigneeRemark = fmPartList.getString("consigneeRemark");//收货单位名称
-        String outDiameter = fmPartList.getString("outDiameter");//卷外径
-
-        ProductInfoMap productInfoMap = new ProductInfoMap();
-        productInfoMap.setPackid(packid);
-        productInfoMap.setFactoryProductid(factoryProductId);
-        productInfoMap.setSpec(spec);
-        productInfoMap.setProductTypeName(productTypeName);
-        productInfoMap.setShopsign(shopsign);
-        productInfoMap.setMwrapid(mwrapid);
-        productInfoMap.setConfirmDate(confirmDate);
-        productInfoMap.setConfirmPerson(confirmPerson);
-        productInfoMap.setStoveNum(stoveNum);
-        productInfoMap.setInnerDiameter(innerDiameter);
-        productInfoMap.setOutDiameter(outDiameter);
-        productInfoMap.setOutWidth(outWidth);
-        productInfoMap.setConsigneeId(consigneeId);
-        productInfoMap.setConsigneeName(consigneeName);
-        productInfoMap.setConsigneeRemark(consigneeRemark);
-
-        partPackDao.insertPartPack(productInfoMap);
-
-
-
-        return jsonObject;
-    }
-
-    /**
-     * 生产工单产出信息
-     * @param segNo
-     * @param productionOrderCode
-     * @param fProductId
-     * @param fPackId
-     * @return
-     */
-    public  String queryProduct(String segNo, String productionOrderCode, String fProductId, String fPackId){
-
-        ProductionOrderInfo productionOrderInfo = new ProductionOrderInfo();
-        productionOrderInfo.setSegNo(segNo);
-        productionOrderInfo.setProductionOrderCode(productionOrderCode);
-        productionOrderInfo.setFProductId(fProductId);
-        productionOrderInfo.setFPackId(fPackId);
-        String productionOrderInfoObject = JSONObject.toJSONString(productionOrderInfo);
-        String jsonObject = restTemplate.postForObject("http://10.30.184.236:80/LINKS/queryProduct", productionOrderInfoObject, String.class);
-
-
-        ////////////////////////////////////////////////////////////
-//        JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
-//        Client client = dcf.createClient("http://10.30.91.76/:8088/gmsc-new-service/services/GmscWebService?wsdl");
-//        // client.getOutInterceptors().add(new ClientLoginInterceptor(USER_NAME,PASS_WORD));
-//        Object[] objects = new Object[0];
-//        try {
-//            // invoke("方法名",参数1,参数2,参数3....);
-////            objects = client.invoke("webService", "传递的参数");
-//            objects = client.invoke("queryProduct", "productionOrderInfoObject");
-//            System.out.println("返回数据:" + objects[0]);
-//        } catch (java.lang.Exception e) {
-//            e.printStackTrace();
-//        }
-
-        ////////////////////////////////////////////////////////////
-
-        JSONObject resultJSONObject = JSONObject.parseObject(jsonObject);
-        JSONObject productInfo = resultJSONObject.getJSONObject("productInfo");
-        String packid = productInfo.getString("packid");
-        String partid = productInfo.getString("partid");
-        String quantity = productInfo.getString("quantity");
-        String qualityGradeName = productInfo.getString("qualityGradeName");
-        String unitedPackid = productInfo.getString("unitedPackid");//并包号
-
-        ProductInfoMap productInfoMap = new ProductInfoMap();
-        productInfoMap.setPackid(packid);
-        productInfoMap.setPartid(partid);
-        productInfoMap.setQuantity(quantity);
-        productInfoMap.setQualityGradeName(qualityGradeName);
-        productInfoMap.setUnitedPackid(unitedPackid);
-        partPackDao.updatePartPack(productInfoMap);
-        //productInfo
-        return jsonObject;
-    }
-
-
-    public String queryPartPackInfo(String packId){
-        ProductInfoMap productInfoMap = partPackDao.queryPartPack(packId);
-        JSONObject jsonObject = (JSONObject) JSON.toJSON(productInfoMap);
-        return jsonObject.toJSONString();
-    }
-
     public String quaryPackagingData(String segNo, String productionOrderCode, String fProductId, String fPackId){
         ProductionOrderInfo productionOrderInfo = new ProductionOrderInfo();
         productionOrderInfo.setSegNo(segNo);
@@ -380,15 +236,43 @@ public class TestServiceImpl implements TestService {
     }
 
 
-    public List<ProductInfoMap> queryPartPackInfoList(String packId){
-        List<ProductInfoMap> list = partPackDao.queryPartPackList(packId);
-        JSONArray array = JSONArray.parseArray(JSON.toJSONString(list));
-//        JSONObject jsonObject = (JSONObject) JSON.toJSON(list);
-//        return array.toJSONString();
-        return list;
-    }
 //http://127.0.0.1:8088/greet?wsdl
 
+    public String testJson(){
+        String jsonStr = "{\"rmPartPackList\":[],\"cmpPackList\":[],\"dataInfo\":[{\"afterPOrderId\":\"\",\"agreementId\":\"MA20003\",\"agreementSubid\":\"MA20003001\",\"auditDate\":\"\",\"auditPerson\":\"\",\"batchId\":\"\",\"businessName\":\"来料加工\"," +
+                "\"businessType\":\"30\",\"businessTypeName\":\"\",\"canReturnMaterial\":\"0\",\"combineNo\":\"\",\"createDate\":\"2020-10-29 10:56:08\",\"createPerson\":\"admin\",\"deliveryDate\":\"2020-10-29 10:50:00\",\"deliveryTime\":0,\"earchivesNo\":\"\"," +
+                "\"endDate\":\"2020-10-29 11:07:03\",\"finEndDate\":\"\",\"finStartDate\":\"\",\"iecStatus\":\"25\",\"iecStatusName\":\"\",\"ifArrangeOnly\":\"\",\"ifFirst\":\"0\",\"ifMaterail\":\"\",\"ifRoll\":\"J\",\"ifSettle\":\"1\",\"ifSettleFinish\":\"\"," +
+                "\"lockFlag\":1,\"machPrice\":21.551724,\"machPriceAt\":25,\"machPriceType\":\"10\",\"machineId\":\"WW-LHWJ\",\"machineName\":\"\",\"materialRate\":0,\"modiDate\":\"2020-10-29 11:00:33\",\"modiPerson\":\"admin\",\"numberNew\":\"\",\"orderFrom\":\"\"," +
+                "\"orderSpec\":\"1.2*450*800(生产数量:2654,生产重量:8.999714吨)\",\"preProductionDemandSubCode\":\"\",\"preProductionDemandSubId\":0,\"prepareTime\":0,\"priceType\":\"10\",\"processNumber\":\"\",\"processRate\":1,\"processSubnumber\":0," +
+                "\"productProcessId\":\"H\",\"productProcessName\":\"横切\",\"productionDemandCode\":\"34R201029001\",\"productionDemandId\":38601,\"productionDemandSubCode\":\"34R201029001001\",\"productionDemandSubId\":37841,\"productionLock\":\"\"," +
+                "\"productionOrderCode\":\"34H201029001\",\"productionOrderId\":27701,\"productionTime\":0,\"providerId\":\"P80805\",\"providerName\":\"东莞市蓝海五金科技有限公司\",\"recipeNo\":\"\",\"remainQty\":0,\"remainWeight\":0,\"remark\":\"MBOM手工生成\"," +
+                "\"rowKnifeId\":\"\",\"segNo\":\"00118\",\"startDate\":\"2020-10-29 11:07:03\",\"status\":\"20\",\"statusName\":\"待执行\",\"suitVoucherNum\":\"\",\"taxRate\":0.16,\"teamId\":\"10\",\"transferTime\":0,\"userName\":\"\",\"workingShift\":\"M\"," +
+                "\"wproviderName\":\"\"}],\"fmPartList\":[{\"contractId\":\"X201000001\",\"contractSubid\":\"X2010000010001\",\"createDate\":\"2020-10-29 10:56:08\",\"createPerson\":\"admin\",\"customerId\":\"G0480\",\"demandQty\":0,\"demandUseQty\":0," +
+                "\"demandUseWeight\":0,\"demandWeight\":0,\"eachPackWeight\":0,\"eachQty\":0,\"eachWeight\":0.003391,\"insideDiameter\":0,\"lackProductionId\":\"\",\"modiDate\":\"2020-10-29 10:56:30\",\"modiPerson\":\"admin\",\"outputOrderId\":35361," +
+                "\"outputQty\":2654,\"outputWeight\":8.999714,\"pOutput\":1,\"packingTypeId\":\"32\",\"packingTypeName\":\"精包G,卷,纵向捆扎2道+防锈纸+薄膜（东莞茂森）\",\"partId\":\"LJ20102300003\",\"processUseQty\":0,\"processUseWeight\":0,\"productDeciPlace\":\"6\"," +
+                "\"productDemandCode\":\"\",\"productDemandId\":0,\"productTypeId\":\"TL11\",\"productTypeName\":\"冷轧板卷\",\"productionDemandCode\":\"34R201029001\",\"productionDemandId\":38601,\"productionDemandSubCode\":\"34R201029001001\"," +
+                "\"productionDemandSubId\":37841,\"productionOrderCode\":\"34H201029001\",\"productionOrderId\":27701,\"qtyUnit\":\"K0\",\"remainQty\":0,\"remainWeight\":0,\"remark\":\"MBOM手工生成\"," +
+                "\"remarkInfo\":\"最终成品规格:1.2*450*800 厚:  0.00/  0.00 宽:  0.00/  0.00 长:  0.00/  0.00,镰弯刀:,对角线：,毛刺：,平坦度：,计量方式：实际计重,技术标准：,好面朝向：,质量等级：正品,特殊说明：无\",\"sample\":\"\",\"segNo\":\"00118\",\"shopsign\":\"CR210BH\"," +
+                "\"spec\":\"1.2*450*800\",\"status\":\"05\",\"stockUseQty\":0,\"stockUseWeight\":0,\"suitVoucherNum\":\"\",\"weightUnit\":\"10\"}],\"msgDetail\":\"查询成功\",\"rmQualityDescList\":[],\"rmPartList\":[{\"createDate\":\"2020-10-29 10:56:08\"," +
+                "\"createPerson\":\"admin\",\"eachWeight\":0,\"inputQty\":2,\"inputWeight\":9,\"modiDate\":\"2020-10-29 10:56:30\",\"modiPerson\":\"\",\"partId\":\"LJ20102300002\",\"productTypeId\":\"TL11\",\"productTypeName\":\"冷轧板卷\"," +
+                "\"productionDemandCode\":\"34R201029001\",\"productionDemandId\":38601,\"productionDemandSubCode\":\"34R201029001001\",\"productionDemandSubId\":37841,\"productionOrderCode\":\"34H201029001\",\"productionOrderId\":27701," +
+                "\"remark\":\"MBOM手工生成\",\"rinput\":0.003391,\"segNo\":\"00118\",\"shopsign\":\"CR210BH\",\"spec\":\"1.2*450*C\",\"status\":\"05\",\"suitVoucherNum\":\"\"}],\"confirmList\":null,\"msgCode\":\"1\",\"sumInfo\":\"\"}";
+
+        JSONObject jsonObject = JSONObject.parseObject(jsonStr);
+        JSONArray fmPartList = jsonObject.getJSONArray("fmPartList");
+        if(fmPartList.size() > 0){
+            for (int i = 0; i < fmPartList.size(); i++) {
+                JSONObject jsonObjectFMPart = fmPartList.getJSONObject(i);
+                System.out.println("遍历jsonArray,获取数组中的name属性值："+jsonObjectFMPart.get("remarkInfo"));
+            }
+        }
+        System.out.println(fmPartList.toJSONString());
+
+//        JSONArray jsonArray = new JSONArray(json);
+//        System.out.println("String转JSONArray: "+jsonArray);
+        System.out.println();
+        return  fmPartList.toJSONString();
+    }
 
 
 }

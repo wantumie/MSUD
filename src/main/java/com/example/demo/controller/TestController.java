@@ -90,6 +90,19 @@ public class TestController {
 
         return code;
     }
+    @RequestMapping("/insert")
+    public String insertInfo(){
+        String code = "0000";
+        try {
+            testService.insertPartinfo("partId", "spec");
+            code = "200";
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("更新报错");
+        }
+
+        return code;
+    }
     @RequestMapping("/updateInfo")
     public String updateInfo(String partId, String spec){
         String code = "0000";
@@ -123,23 +136,13 @@ public class TestController {
     @RequestMapping("/getversion")
     public String getversion(){
 
-        testService.wsService();
+//        testService.wsService();
 
+        testService.testJson();
 
-        return "20201101";
+//        return "20201101";
+        return testService.testJson();
     }
 
-    @RequestMapping("/index")
-    public ModelAndView index(String partId){
 
-        ModelAndView mv = new ModelAndView();
-        List<Map> list = testService.queryPartList(partId);
-//        mv.addObject("newText","你好，Thymeleaf！");
-        mv.addObject("newText","你好，景林包装！");
-        mv.addObject("gender","1");
-        mv.addObject("productList",list);
-        mv.setViewName("/index");
-
-        return mv;
-    }
 }

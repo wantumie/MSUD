@@ -2,6 +2,7 @@ package com.example.demo.dao;
 
 import com.example.demo.entity.ProductInfoMap;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,5 +14,6 @@ public interface PartPackDao {
 
     ProductInfoMap queryPartPack(String packId);
 
-    List<ProductInfoMap> queryPartPackList(String packId);
+    List<ProductInfoMap> queryPartPackList(@Param("packid")String packid);
+
 }

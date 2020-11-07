@@ -81,10 +81,12 @@
     <p th:case="*">其他</p>
 </div>-->
 <div style="text-align: center;padding:15px;border:1px solid #333;margin-bottom:30px;">
-    名称&nbsp;<input class="inputStyle" id="queryPartId">
+    名称&nbsp;<input class="inputStyle" id="queryPackId">
     <p style="text-align: center;margin-top:20px;">
         <button class="btn" onclick="queryInit()">查询</button>
+<!--
         <button class="btn" onclick="addInit()">新增</button>
+-->
     </p>
 </div>
 <!-- 　　　　each　　　　其中，iterStat参数为状态变量，常用的属性有　　　　index 迭代下标，从0开始　　　　count 迭代下标，从1开始　　　　size 迭代元素的总量　　　　current 当前元素
@@ -93,24 +95,30 @@
     <thead>
     <tr>
         <th>捆包号</th>
-        <th>规格</th>
-        <th>件数</th>
         <th>包装工艺</th>
+        <th>钢厂资源号</th>
+        <th>规格</th>
+        <th>品种</th>
+        <th>品名</th>
         <th>牌号</th>
-        <th>零件号</th>
+        <th>件数</th>
+        <th>机组</th>
         <th>操作</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="product,iterStat : ${productList}">
+    <tr th:each="product,iterStat : ${productPage.list}">
         <td th:text="${product.packId}"></td>
+        <td th:text="${product.packingTypeId}"></td>
+        <td th:text="${product.factoryProductid}"></td>
         <td th:text="${product.spec}"></td>
-        <td th:text="${product.quantity}"></td>
-        <td th:text="${product.productTypeid}"></td>
+        <td th:text="${product.productTypeId}"></td>
+        <td th:text="${product.productTypeName}"></td>
         <td th:text="${product.shopsign}"></td>
-        <td th:text="${product.partId}"></td>
+        <td th:text="${product.quantity}"></td>
+        <td th:text="${product.machineId}"></td>
         <td>
-            <a class="link" th:data-id="${product.partId}"  onclick="updateInit(this.getAttribute('data-id'))" >修改</a>
+            <a class="link" th:data-id="${product.packId}"  onclick="updateInit(this.getAttribute('data-id'))" >修改</a>
             <!--<a class="link">删除</a>-->
 
 
@@ -118,6 +126,8 @@
     </tr>
     </tbody>
 </table>
+
+
 
 <div class="modal fade bs-example-modal-lg" id="newAddModal">
     <div class="modal-dialog modal-lg">
@@ -141,7 +151,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <span class="input-group-text" id="quantity">姓名</span>
+                            <span class="input-group-text" id="name">姓名</span>
                             <input type="text" class="form-control" aria-describedby="name1">
                         </div>
                     </div>
@@ -167,23 +177,66 @@
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text" >捆包号</span>
-                            <input type="text" class="form-control" aria-describedby="name1" id="packId" >
+                            <input type="text" class="form-control" aria-describedby="name1" id="packId" name="packId">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <span class="input-group-text" >规格</span>
-                            <input type="text" class="form-control" aria-describedby="name1" id="spec">
+                            <span class="input-group-text" >包装工艺</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="packingTypeId">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <span class="input-group-text" id="quantity">件数</span>
-                            <input type="text" class="form-control" aria-describedby="name1">
+                            <span class="input-group-text" >钢厂资源号</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="factoryProductid">
                         </div>
                     </div>
 
                 </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >规格</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="spec" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >品种</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="productTypeId">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >品名</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="productTypeName">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >牌号</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="shopsign" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >件数</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="quantity">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >机组</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="machineId">
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button data-dismiss="modal" type="button" class="btn-primary" href="javascript:void(0)" onclick="updateProduct('${product.partId}')">修改</button>
@@ -192,6 +245,11 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="lib/jquery/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="lib/bootstrap/js/b"></script>
+<script type="text/javascript" src="lib/jquery/jquery-3.5.1.min.js"></script>
+
 <script type="text/javascript" src="lib/jquery/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script>
@@ -202,10 +260,10 @@
 
     function queryInit() {
 
-        var queryPartId  = $("#queryPartId").val();
+        var queryPackId  = $("#queryPackId").val();
 
 
-        window.location.href="/list?partId="+queryPartId
+        location.href="/index?partId="+queryPackId
 
     }
 
@@ -216,19 +274,28 @@
         $('#newAddModal').modal('show');
     }
 
-    function updateInit(id) {
-        console.log(id);
+    function updateInit(packid) {
+        console.log(packid);
         // var partId = $("#partId").val();
         $('#updateModal').modal('show');
         $.ajax({
-            url: '/queryInfo',
-            data : {"id":id},
+            url: '/querypartpackinfo',
+            data : {"packid":packid},
             dataType: "json",
             success:function (result) {
+                console.log(result);
                 if (result != null && result.length > 0){
                     for (var i=0;i<result.length;i++){
-                        $('#packId').val(result[i].partId);
+                        console.log(result[i].packId);
+                        $('#packId').val(result[i].packId);
+                        $('#packingTypeId').val(result[i].packingTypeId);
+                        $('#factoryProductid').val(result[i].factoryProductid);
                         $('#spec').val(result[i].spec);
+                        $('#productTypeId').val(result[i].productTypeId);
+                        $('#productTypeName').val(result[i].productTypeName);
+                        $('#shopsign').val(result[i].shopsign);
+                        $('#quantity').val(result[i].quantity);
+                        $('#machineId').val(result[i].machineId);
 
                     }
                 }
@@ -254,11 +321,11 @@
 
     function updateProduct() {
 
-        var partId = $("#partId").val();    // 获取id为username的<input>框数据
+        var packId = $("#packId").val();    // 获取id为username的<input>框数据
         var spec = $("#spec").val();    // 获取id为password的<input>框数据
         $.ajax({
-            url: '/updateInfo',
-            data : {"partId":partId, "spec":spec},
+            url: '/updatepartpackInfo',
+            data : {"packId":packId, "spec":spec},
             dataType: "json",
             success:function (result) {
                 console.log(result);
@@ -270,8 +337,8 @@
                         console.log(2)
                     }*/
                     alert("修改成功！");
-                    /*location.href = "/list";*/
-                    window.location.reload();
+                    location.href = "/index";
+                    // window.location.reload();
 
                 }
             }

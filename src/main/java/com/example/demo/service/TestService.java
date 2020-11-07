@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.demo.entity.ProductInfoMap;
+import com.example.demo.entity.R;
 
 import javax.swing.*;
 import java.util.List;
@@ -22,18 +24,9 @@ public interface TestService {
 
     void updatePartinfo(String partId, String spec);
 
-
-
-    String queryDetail(String segNo, String productionOrderCode);
-
-    String queryProduct(String segNo, String productionOrderCode, String fProductId, String fPackId);
-
-    String queryPartPackInfo(String packId);
-
-    List<ProductInfoMap> queryPartPackInfoList(String packId);
-
-
     void insertPartinfo(String partId, String spec);
 
     String wsService();
+
+    String testJson();
 }
