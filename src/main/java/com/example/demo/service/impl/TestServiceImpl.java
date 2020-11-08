@@ -175,7 +175,7 @@ public class TestServiceImpl implements TestService {
         try {
             // invoke("方法名",参数1,参数2,参数3....);
 //            objects = client.invoke("webService", "传递的参数");
-            objects = client.invoke("analyticalParm", jsonObject);
+            objects = client.invoke("analyticalParm", jsonObject.toJSONString());
             System.out.println("返回数据:" + objects[0]);
         } catch (java.lang.Exception e) {
             e.printStackTrace();
