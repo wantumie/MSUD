@@ -156,15 +156,26 @@ public class TestServiceImpl implements TestService {
     @Override
     public String wsService() {
 
+        String str = "{\n" +
+                "    \"innerUri\":\"JKProductionOrderService\",\n" +
+                "    \"method\":\"queryDetail\",\n" +
+                "    \"parameter\":{\n" +
+                "        \"segNo\":\"00120\",\n" +
+                "        \"productionOrderCode\":\"41Z200917001\"\n" +
+                "    }\n" +
+                "}";
+        JSONObject jsonObject = JSONObject.parseObject(str);
+
+
         ////////////////////////////////////////////////////////////
         JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
-        Client client = dcf.createClient("http://127.0.0.1:8088/greet?wsdl");
+        Client client = dcf.createClient("http://10.30.91.76:8088/gmsc-new-service/services/GmscWebService?wsdl");
         // client.getOutInterceptors().add(new ClientLoginInterceptor(USER_NAME,PASS_WORD));
         Object[] objects = new Object[0];
         try {
             // invoke("方法名",参数1,参数2,参数3....);
 //            objects = client.invoke("webService", "传递的参数");
-            objects = client.invoke("greeting", "productionOrderInfoObject");
+            objects = client.invoke("analyticalParm", jsonObject);
             System.out.println("返回数据:" + objects[0]);
         } catch (java.lang.Exception e) {
             e.printStackTrace();

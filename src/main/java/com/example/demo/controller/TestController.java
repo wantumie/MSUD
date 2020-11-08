@@ -136,13 +136,14 @@ public class TestController {
     @RequestMapping("/getversion")
     public String getversion(){
 
-//        testService.wsService();
+        testService.wsService();
 
-        testService.testJson();
+//        testService.testJson();
 
-//        return "20201101";
-        return testService.testJson();
+        return "20201101";
+//        return testService.testJson();
     }
+
 
 
 }
