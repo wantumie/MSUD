@@ -31,84 +31,18 @@
         <result column="检查员" property="confirmPerson" />
 <!--        <result column="净重" property="factoryProductid" />-->
         <result column="捆包号" property="packId" />
-<!--        <result column="钢厂资源号" property="factoryProductid" />-->
+        <result column="钢厂资源号" property="factoryProductid" />
 <!--        <result column="堆垛托盘号" property="factoryProductid" />-->
     </resultMap>
-
 
     <select id="queryPartPack" parameterType="java.lang.String" resultMap="BaseResultMap">
         select * from productInfo where packId = #{packid}
     </select>
 
     <insert id="insertPartPack" parameterType="com.example.demo.entity.ProductInfoMap">
-       <!-- INSERT INTO productinfo(id, packId, spec, productTypeId, shopsign, quantity, qualityGradeName, confirmDate, machineId, productTypeName, packingTypeId, factoryProductid, unitedPackId, partId, putinWeight, mwrapid, confirmPerson, grossWeight, netWeight, deep, width, length)
-                            VALUES (#{id}, #{packId}, #{spec}, #{productTypeId}, #{shopsign}, #{quantity}, #{qualityGradeNam}, #{confirmDate}, #{machineId}, #{productTypeName}, #{packingTypeId}, #{factoryProductid}, #{unitedPackId}, #{partId}, #{putinWeight}, #{mwrapid}, #{confirmPerson}, #{grossWeight}, #{netWeight}, #{deep}, #{width}, #{length});
--->
-INSERT INTO [dbo].[宝钢数据库表]
-           ([钢卷号]
-           ,[日期]
-           ,[时间]
-           ,[母卷号]
-           ,[并包号]
-           ,[捆包卷数]
-           ,[堆垛区]
-           ,[产品外径]
-           ,[产品内径]
-           ,[产品宽度]
-           ,[品名]
-           ,[标准]
-           ,[规格]
-           ,[牌号]
-           ,[毛重增加]
-           ,[件数]
-           ,[炉号]
-           ,[机组]
-           ,[质量等级]
-           ,[收货单位代号]
-           ,[收货单位名称]
-           ,[收货备注]
-           ,[客户零件号]
-           ,[客户零件名称]
-           ,[检查员]
-           ,[净重]
-           ,[捆包号]
-           ,[钢厂资源号]
-           ,[毛重]
-           ,[堆垛托盘号])
-     VALUES
-           (5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5
-           ,5)
-        <!--INSERT INTO "宝钢数据库表" VALUES (#{packid}, #{confirmDate}, #{factoryProductid}, #{mwrapId}, #{unitedPackid}, #{factoryProductid}, #{factoryProductid}, #{outDiameter}, #{innerDiameter},
-        #{outWidth}, #{productTypeName}, #{factoryProductid}, #{spec}, #{shopsign}, #{factoryProductid}, #{quantity}, #{stoveNum}, #{machineId}, #{qualityGradeName}, #{consigneeId}, #{consigneeName}, #{consigneeRemark},
-        #{partid}, #{factoryProductid}, #{confirmPerson}, #{factoryProductid}, #{packid}, #{factoryProductid}, #{factoryProductid})-->
+        INSERT INTO [dbo].[宝钢数据库表] ([日期],[母卷号],[并包号],[产品外径],[产品内径],[产品宽度],[品名],[规格],[牌号],[件数],[炉号],[机组],[质量等级],[收货单位代号],[收货单位名称],[收货备注],[客户零件号],[检查员],[捆包号],[钢厂资源号])
+        VALUES (#{confirmDate},#{mwrapid}, #{unitedPackid},  #{outDiameter}, #{innerDiameter},#{outWidth}, #{productTypeName}, #{spec}, #{shopsign}, #{quantity}, #{stoveNum}, #{machineId},
+            #{qualityGradeName}, #{consigneeId}, #{consigneeName}, #{consigneeRemark},#{partId}, #{confirmPerson}, #{packId}, #{factoryProductid})
     </insert>
 
     <update id="updatePartPack" parameterType="com.example.demo.entity.ProductInfoMap">
@@ -198,37 +132,11 @@ INSERT INTO [dbo].[宝钢数据库表]
         <if test="asdf != null and asdf != ''">
             堆垛托盘号 = #{asdf},
         </if>-->
-
-
         捆包号 = #{packId}
-
-
-            where 捆包号 = #{packId}
-
-
-
-
-        <!--UPDATE productinfo
-        SET packId = #{packId},
-        spec = #{spec},
-        productTypeId = #{productTypeId},
-        shopsign = #{shopsign},
-        quantity = #{quantity},
-        qualityGradeName = #{qualityGradeNam},
-        confirmDate = #{confirmDate},
-        machineId = #{machineId},
-        productTypeName = #{productTypeName},
-        packingTypeId = #{packingTypeId},
-        factoryProductid = #{factoryProductid},
-        unitedPackId = #{unitedPackId},
-        putinWeight = #{putinWeight},
-        mwrapid = #{mwrapid},
-        confirmPerson = #{confirmPerson}
-        WHERE partId = #{partId}-->
+        where 捆包号 = #{packId}
     </update>
 
     <select id="queryPartPackList" parameterType="String" resultMap="BaseResultMap">
-         /*select * from productInfo*/
          select 钢卷号,日期, 时间,母卷号, 并包号, 捆包卷数, 堆垛区, 产品外径, 产品内径, 产品宽度, 品名, 标准, 规格, 牌号, 毛重增加, 件数, 炉号, 机组, 质量等级, 收货单位代号, 收货单位名称, 收货备注, 客户零件号, 客户零件名称, 检查员, 净重, 捆包号, 钢厂资源号, 毛重, 堆垛托盘号 from "宝钢数据库表"
         <if test="packid != null and packid != ''">
         where 捆包号 = #{packid}

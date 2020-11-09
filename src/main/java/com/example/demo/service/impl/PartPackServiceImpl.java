@@ -45,12 +45,13 @@ public class PartPackServiceImpl implements PartPackService {
         return jsonObject.toJSONString();
     }
 
+    @Override
+    public void insertPartinfo(ProductInfoMap productInfoMap) {
+        partPackDao.insertPartPack(productInfoMap);
+    }
 
     @Override
-    public void updatePartinfo(String packId, String spec) {
-        ProductInfoMap productInfoMap = new ProductInfoMap();
-        productInfoMap.setPackId(StringUtils.trimAllWhitespace(packId));
-        productInfoMap.setSpec(StringUtils.trimAllWhitespace(spec));
+    public void updatePartinfo(ProductInfoMap productInfoMap) {
         partPackDao.updatePartPack(productInfoMap);
     }
 

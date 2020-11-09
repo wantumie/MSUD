@@ -16,5 +16,7 @@ public interface PartPackService {
 
     PageInfo<ProductInfoMap> queryPartPackInfoList(String packId, int pageNo, int pageSize);
 
-    void updatePartinfo(String packId, String spec);
+    void updatePartinfo(ProductInfoMap productInfoMap);
+
+    void insertPartinfo(ProductInfoMap productInfoMap);
 }

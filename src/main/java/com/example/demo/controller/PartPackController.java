@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.demo.entity.ProductInfoMap;
 import com.example.demo.entity.R;
 import com.example.demo.service.PartPackService;
@@ -7,7 +8,9 @@ import com.example.demo.service.TestService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,10 +46,11 @@ public class PartPackController {
         return mv;
     }
     @RequestMapping("/updatepartpackInfo")
-    public String updateInfo(String packId, String spec){
+    public String updateInfo(@RequestBody ProductInfoMap productInfoMap){
         String code = "0000";
+
         try {
-            partPackService.updatePartinfo(packId, spec);
+            partPackService.updatePartinfo(productInfoMap);
             code = "200";
         }catch (Exception e){
             e.printStackTrace();
