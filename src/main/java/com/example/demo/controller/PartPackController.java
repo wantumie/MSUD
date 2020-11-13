@@ -8,10 +8,7 @@ import com.example.demo.service.TestService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -32,15 +29,15 @@ public class PartPackController {
     PartPackService partPackService;
 
     @RequestMapping("/index")
-    public ModelAndView index(String partId, String pageNo, String pageSize){
+    public ModelAndView index(String partId, @RequestParam(value="pageNo",defaultValue="1")Integer pageNo, @RequestParam(value="pageSize",defaultValue="1")Integer pageSize){
 
         ModelAndView mv = new ModelAndView();
-        PageInfo<ProductInfoMap> productPage = partPackService.queryPartPackInfoList(partId, 1, 10);
+        PageInfo<ProductInfoMap> productPage = partPackService.queryPartPackInfoList(partId, pageNo, pageSize);
 
 //        mv.addObject("newText","你好，Thymeleaf！");
         mv.addObject("newText","你好，景林包装！");
         mv.addObject("gender","1");
-        mv.addObject("productPage",productPage);
+        mv.addObject("pager",productPage);
         mv.setViewName("/index");
 
         return mv;

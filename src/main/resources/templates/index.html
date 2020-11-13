@@ -5,7 +5,9 @@
 <head>
     <meta charset="UTF-8" />
     <title>srpingboot</title>
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<!--    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">-->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
 
     <style>
         table{
@@ -35,6 +37,11 @@
             background:#007bff;
         }
         .inputStyle{
+            width:120px;
+            height:35px;
+            padding:3px;
+        }
+        .inputrightStyle{
             width:300px;
             height:35px;
             padding:3px;
@@ -48,6 +55,39 @@
         .link{
             color:#80bdff;
             cursor: pointer;
+        }
+
+        .pagination {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .pagination li {
+            margin: 0 1px;
+        }
+
+        .pagination a {
+            display: block;
+            padding: .5em 1em;
+            border: 1px solid #999;
+            border-radius: .2em;
+            text-decoration: none;
+        }
+
+        .pagination a[aria-current="page"] {
+            background-color: #333;
+            color: #fff;
+        }
+        .xuanzhong {
+            font-weight: bold;
+            background: #ddd;
+            display: block;
+            padding: .5em 1em;
+            border: 1px solid #999;
+            border-radius: .2em;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -80,14 +120,27 @@
     &lt;!&ndash; th:case="*"  类似switch中的default &ndash;&gt;
     <p th:case="*">其他</p>
 </div>-->
-<div style="text-align: center;padding:15px;border:1px solid #333;margin-bottom:30px;">
-    捆包号&nbsp;<input class="inputStyle" id="queryPackId">
+<div style="text-align: center;padding:15px;margin-bottom:30px;">
+    <div style="width:48%;float:left;border:1px solid #333;text-align: center;padding:15px;margin-bottom:30px;">
+        公司代码&nbsp;<input class="inputStyle" id="queryPartId">
+        订单号&nbsp;<input class="inputStyle" id="queryPartId">
+        资源号&nbsp;<input class="inputStyle" id="queryPartId">
+        捆包号&nbsp;<input class="inputStyle" id="queryPartId">
+        <p style="text-align: center;margin-top:20px;">
+            <button class="btn" onclick="queryInit()">查询</button>
+<!--            <button class="btn" onclick="addInit()">新增</button>-->
+        </p>
+    </div>
+    <div style="width:48%;float:right;border:1px solid #333;text-align: center;padding:15px;margin-bottom:30px;">
+
+    捆包号&nbsp;<input class="inputrightStyle" id="queryPackId">
     <p style="text-align: center;margin-top:20px;">
-        <button class="btn" onclick="queryInit()">查询</button>
+        <button class="btn" onclick="queryInit()">本地查询</button>
 <!--
         <button class="btn" onclick="addInit()">新增</button>
 -->
     </p>
+    </div>
 </div>
 <!-- 　　　　each　　　　其中，iterStat参数为状态变量，常用的属性有　　　　index 迭代下标，从0开始　　　　count 迭代下标，从1开始　　　　size 迭代元素的总量　　　　current 当前元素
 　　 -->
@@ -120,7 +173,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="product,iterStat : ${productPage.list}">
+    <tr th:each="product,iterStat : ${pager.list}">
         <td th:text="${product.packId}"></td>
 <!--        <td th:text="${product.packingTypeId}"></td>-->
         <td th:text="${product.factoryProductid}"></td>
@@ -144,7 +197,7 @@
         <td th:text="${product.consigneeName}"></td>
         <td th:text="${product.consigneeRemark}"></td>
         <td>
-            <a class="link" th:data-id="${product.packId}"  onclick="updateInit(this.getAttribute('data-id'))" >修改</a>
+            <a class="link" th:data-id="${product.packId}" style="color:#80bdff;" onclick="updateInit(this.getAttribute('data-id'))" >修改</a>
             <!--<a class="link">删除</a>-->
 
 
@@ -153,6 +206,40 @@
     </tbody>
 </table>
 
+<!--显示分页信息-->
+<div class="modal-footer no-margin-top">
+    <div class="col-md-6">
+        当前第 [[${pager.pageNum}]]页,共 [[${pager.pages}]] 页.一共 [[${pager.total}]] 条记录
+    </div>
+
+
+    <ul class="pagination pull-right no-margin">
+        <li th:if="${pager.hasPreviousPage}">
+            <a th:href="'/index?pageNo=1'">首页</a>
+        </li>
+
+        <li class="prev" th:if="${pager.hasPreviousPage}">
+            <a th:href="'/index?pageNo='+${pager.prePage}">
+                <i class="ace-icon fa fa-angle-double-left"></i>
+            </a>
+        </li>
+        <!--遍历条数-->
+        <li th:each="nav:${pager.navigatepageNums}">
+            <a th:href="'/index?pageNo='+${nav}" th:text="${nav}" th:if="${nav != pager.pageNum}"></a>
+            <span th:class="xuanzhong" th:if="${nav == pager.pageNum}" th:text="${nav}" ></span>
+        </li>
+
+        <li class="next" th:if="${pager.hasNextPage}">
+            <a th:href="'/index?pageNo='+${pager.nextPage}">
+                <i class="ace-icon fa fa-angle-double-right"></i>
+            </a>
+        </li>
+
+        <li>
+            <a th:href="'/index?pageNo='+${pager.pages}">尾页</a>
+        </li>
+    </ul>
+</div>
 
 
 <div class="modal fade bs-example-modal-lg" id="newAddModal">
@@ -219,14 +306,17 @@
                         </div>
                     </div>
 
-                </div>
-                <div class="row">
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text" >规格</span>
                             <input type="text" class="form-control" aria-describedby="name1" id="spec" >
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
 <!--                    <div class="col-md-4">-->
 <!--                        <div class="input-group">-->
 <!--                            <span class="input-group-text" >品种</span>-->
@@ -239,9 +329,6 @@
                             <input type="text" class="form-control" aria-describedby="name1" id="productTypeName">
                         </div>
                     </div>
-
-                </div>
-                <div class="row">
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text" >牌号</span>
@@ -254,15 +341,17 @@
                             <input type="text" class="form-control" aria-describedby="name1" id="quantity">
                         </div>
                     </div>
+
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text" >机组</span>
                             <input type="text" class="form-control" aria-describedby="name1" id="machineId">
                         </div>
                     </div>
-
-                </div>
-                <div class="row">
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text" >质量等级</span>
@@ -275,14 +364,17 @@
                             <input type="text" class="form-control" aria-describedby="name1" id="confirmDate">
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text" >并包号</span>
                             <input type="text" class="form-control" aria-describedby="name1" id="unitedPackid">
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text" >检查员</span>
@@ -295,14 +387,17 @@
                             <input type="text" class="form-control" aria-describedby="name1" id="partId">
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text" >母卷号</span>
                             <input type="text" class="form-control" aria-describedby="name1" id="mwrapid">
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text" >炉号</span>
@@ -315,14 +410,17 @@
                             <input type="text" class="form-control" aria-describedby="name1" id="innerDiameter">
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text" >卷外径</span>
                             <input type="text" class="form-control" aria-describedby="name1" id="outDiameter">
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text" >卷宽度</span>
@@ -335,14 +433,17 @@
                             <input type="text" class="form-control" aria-describedby="name1" id="consigneeId">
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text" >收货单位名称</span>
                             <input type="text" class="form-control" aria-describedby="name1" id="consigneeName">
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text" >收货单位备注</span>
@@ -361,8 +462,8 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="lib/jquery/jquery-3.5.1.min.js"></script>
-<script type="text/javascript" src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.bundle.js"></script>
 <script>
 
 </script>
