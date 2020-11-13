@@ -32,7 +32,7 @@ public class PartPackController {
     PartPackService partPackService;
 
     @RequestMapping("/index")
-    public ModelAndView index(String partId){
+    public ModelAndView index(String partId, String pageNo, String pageSize){
 
         ModelAndView mv = new ModelAndView();
         PageInfo<ProductInfoMap> productPage = partPackService.queryPartPackInfoList(partId, 1, 10);

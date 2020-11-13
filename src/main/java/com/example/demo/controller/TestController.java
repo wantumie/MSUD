@@ -4,6 +4,8 @@ import com.example.demo.entity.ColumnTitleMap;
 import com.example.demo.entity.ProductInfoMap;
 import com.example.demo.service.ExportDataService;
 import com.example.demo.service.TestService;
+import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,13 +58,14 @@ public class TestController {
         return name;
     }
     @RequestMapping("/list")
-    public ModelAndView queryAllList(String partId){
+    public ModelAndView queryAllList(String partId , @RequestParam(value="pageNo",defaultValue="1")Integer pageNo, @RequestParam(value="pageSize",defaultValue="10")Integer pageSize){
         ModelAndView mv=new ModelAndView();
-        List<Map> list = testService.queryPartList(partId);
+
+        PageInfo<Map> list = testService.queryPartList(partId, pageNo, pageSize);
 //        mv.addObject("newText","你好，Thymeleaf！");
         mv.addObject("newText","你好，景林包装！");
         mv.addObject("gender","1");
-        mv.addObject("productList",list);
+        mv.addObject("pager",list);
 //        if(list!=null) {
 //            mv.addObject("loginUser",list);
 //        }

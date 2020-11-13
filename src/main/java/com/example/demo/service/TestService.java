@@ -1,10 +1,7 @@
 package com.example.demo.service;
 
-import com.alibaba.fastjson.JSONObject;
-import com.example.demo.entity.ProductInfoMap;
-import com.example.demo.entity.R;
+import com.github.pagehelper.PageInfo;
 
-import javax.swing.*;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +15,7 @@ public interface TestService {
 
     List<Map> queryAllList();
 
-    List<Map> queryPartList(String partId);
+    PageInfo<Map> queryPartList(String partId , Integer pageNo, Integer pageSize);
 
     List<Map> queryPartinfo(String partId);
 

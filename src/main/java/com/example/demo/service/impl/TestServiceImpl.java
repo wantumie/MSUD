@@ -1,16 +1,16 @@
 package com.example.demo.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.dao.PartPackDao;
 import com.example.demo.dao.TestDao;
 import com.example.demo.entity.ProductInfoMap;
 import com.example.demo.entity.ProductionOrderInfo;
-import com.example.demo.entity.R;
 import com.example.demo.entity.User;
 import com.example.demo.service.TestService;
 import com.example.demo.util.ExportExcelUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.namespace.QName;
 import java.util.*;
 
 /**
@@ -125,8 +124,10 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public List<Map> queryPartList(String partId) {
-        List<Map> list = testDao.queryPartList(partId);
+    public PageInfo<Map> queryPartList(String partId , Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        List<Map> productInfolist = testDao.queryPartList(partId);
+        PageInfo<Map> list = new PageInfo<>(productInfolist);
         return list;
     }
 
