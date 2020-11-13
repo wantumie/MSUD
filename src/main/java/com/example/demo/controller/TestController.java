@@ -58,7 +58,7 @@ public class TestController {
         return name;
     }
     @RequestMapping("/list")
-    public ModelAndView queryAllList(String partId , @RequestParam(value="pageNo",defaultValue="1")Integer pageNo, @RequestParam(value="pageSize",defaultValue="10")Integer pageSize){
+    public ModelAndView queryAllList(String partId , @RequestParam(value="pageNo",defaultValue="1")Integer pageNo, @RequestParam(value="pageSize",defaultValue="1")Integer pageSize){
         ModelAndView mv=new ModelAndView();
 
         PageInfo<Map> list = testService.queryPartList(partId, pageNo, pageSize);
