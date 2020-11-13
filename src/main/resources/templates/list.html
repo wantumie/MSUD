@@ -6,14 +6,9 @@
     <meta charset="UTF-8" />
     <title>srpingboot</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-<!--    <link rel="stylesheet" type="text/css" href="css/pagination.css">-->
-<!--    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">-->
-    <link rel="stylesheet" href="css/font-awesome.css">
-
-
-
-
-
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <!--    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">-->
+    <!--    <link rel="stylesheet" type="text/css" href="css/pagination.css">-->
     <style>
         table{
             width:100%;
@@ -179,51 +174,6 @@
     </tbody>
 </table>
 
-<!--
-
-<div class="modal-footer no-margin-top">
-    <ul class="pagination pull-right no-margin">
-
-        &lt;!&ndash; 首页 &ndash;&gt;
-        <li>
-            <a th:href="'/list?pageNum=0'">首页</a>
-        </li>
-
-        &lt;!&ndash; 上一页 &ndash;&gt;
-        <li th:if="${pager.hasPreviousPage}">
-            <a th:href="'/list?pageNo=' + ${pager.prePage}" th:text="上一页"></a>
-        </li>
-
-        &lt;!&ndash; 中间页 &ndash;&gt;
-        <li th:each="pageNum:${#numbers.sequence(0, pager.total)}">
-            <a th:href="'/list?pageNo=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum ne pageNum}"></a>
-            <a th:href="'/list?pageNo=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum eq pageNum}" th:style="'font-weight:bold;background: #6faed9;'"></a>
-        </li>
-
-        &lt;!&ndash; 下一页 &ndash;&gt;
-        <li th:if="${users.hasNext()}">
-            <a th:href="'/list?pageNo=' + ${pager.hasNextPage}" th:text="下一页"></a>
-        </li>
-
-        &lt;!&ndash; 尾页 &ndash;&gt;
-        <li>
-            <a th:href="'/list?pageNo=' + ${pager.pages}">尾页</a>
-        </li>
-
-    </ul>
-</div>
-
-
-
-
-
-
-
--->
-
-
-
-
 <!--显示分页信息-->
 <div class="modal-footer no-margin-top">
     <div class="col-md-6">
@@ -232,7 +182,6 @@
 
 
     <ul class="pagination pull-right no-margin">
-<!--    <ul class="pagination pagination-lg">-->
         <li th:if="${pager.hasPreviousPage}">
             <a th:href="'/list?pageNo=1'">首页</a>
         </li>
@@ -260,16 +209,11 @@
     </ul>
 </div>
 
-
-
 <div class="row">
     <div class="page-container" style="margin:20px auto;">
 
     </div>
 </div>
-
-
-
 
 <div class="modal fade bs-example-modal-lg" id="newAddModal">
     <div class="modal-dialog modal-lg">
@@ -369,23 +313,13 @@
 </div>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
-<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="lib/bootstrap/js/pagination.js"></script>
-
-<!--<script type="text/javascript" src="lib/bootstrap/js/jquery.dataTables.min.js"></script>-->
 <script>
 
 </script>
 <script type="text/javascript" >
-
-
     function queryInit() {
-
         var queryPartId  = $("#queryPartId").val();
-
-
         window.location.href="/list?partId="+queryPartId
-
     }
 
     function  del(id) {
@@ -456,72 +390,6 @@
             }
         });
     }
-  /*  var size=[[${pager.total}]];
-    const pageSize = [[${pager.pageSize}]];
-    const dataCount = [[${pager.total}]];
-    const pager = new Pagination('.page-container', {
-        pageSize: pageSize,
-        autoLoad: true,
-        unit: '条',
-        toPage: function (index, _pageSize) {
-            // 设置记录总数，用于生成分页HTML内容
-            if (index === 0 || _pageSize) this.updateCount(dataCount, _pageSize)
-
-            // 根据页码以及分页大小生成html内容
-            let pageListHtml = ''
-            for (var i = 0; i < (_pageSize || pageSize); i++) {
-                pageListHtml += `
-            <div class="col-md-3">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card - ${index * (_pageSize || pageSize) + i + 1}</h5>
-                  <p class="card-text">card-text,card-text,card-text,card-text</p>
-                </div>
-              </div>
-            </div>
-          `
-            }
-            $('.page-list').html(pageListHtml)
-        }
-    })
-
-    $("#btn_first_page").click((el) => {
-        pager.handleToPage(0)
-        setBtnDisabled()
-    })
-    $("#btn_pre_page").click(() => {
-        pager.handleToPage(pager.pageIndex - 1)
-        setBtnDisabled()
-    })
-    $("#btn_next_page").click(() => {
-        pager.handleToPage(pager.pageIndex + 1)
-        setBtnDisabled()
-    })
-    $("#btn_last_page").click(() => {
-        pager.handleToPage(pager.pageCount - 1)
-        setBtnDisabled()
-    })
-    $("#btn_jump_page").click(() => {
-        pager.handleToPage(4)
-        setBtnDisabled()
-    })
-
-    function setBtnDisabled() {
-        $(".page-option-btn").removeClass("disabled")
-        if (pager.pageIndex === 0) {
-            $(".page-option-btn:nth(1)").addClass("disabled")
-        }
-
-        if (pager.pageIndex === pager.pageCount - 1) {
-            $(".page-option-btn:nth(2)").addClass("disabled")
-        }
-    }
-*/
-
-
 </script>
-
-
 </body>
-
 </html>
