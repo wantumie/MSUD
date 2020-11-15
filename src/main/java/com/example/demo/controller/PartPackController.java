@@ -30,7 +30,7 @@ public class PartPackController {
     PartPackService partPackService;
 
     @RequestMapping("/index")
-    public ModelAndView index(String partId, @RequestParam(value="pageNo",defaultValue="1")Integer pageNo, @RequestParam(value="pageSize",defaultValue="10")Integer pageSize){
+    public ModelAndView index(String packId, @RequestParam(value="pageNo",defaultValue="1")Integer pageNo, @RequestParam(value="pageSize",defaultValue="10")Integer pageSize){
 
         ModelAndView mv = new ModelAndView();
         if (pageNo <= 0){
@@ -39,7 +39,11 @@ public class PartPackController {
         if (pageSize <= 0){
             pageSize = 10;
         }
-        PageInfo<ProductInfoMap> productPage = partPackService.queryPartPackInfoList(partId, pageNo, pageSize);
+        if ("null".equals(packId)){
+            packId = null;
+        }
+
+        PageInfo<ProductInfoMap> productPage = partPackService.queryPartPackInfoList(packId, pageNo, pageSize);
 
 //        mv.addObject("newText","你好，Thymeleaf！");
         mv.addObject("newText","你好，景林包装！");
@@ -66,18 +70,25 @@ public class PartPackController {
 
     @RequestMapping("/queryAndInsertData")
     public R queryAndInsertData(String segNo, String productionOrderCode, String fProductId,  String fPackId){
+//    public R queryAndInsertData(@RequestBody ProductionOrderInfo productionOrderInfo){
+//    public R queryAndInsertData(){
 
         R r = new R();
 //        String segNo = productionOrderInfo.getSegNo();
 //        String productionOrderCode = productionOrderInfo.getProductionOrderCode();
 //        String fProductId = productionOrderInfo.getFProductId();
 //        String fPackId = productionOrderInfo.getFPackId();
+//        String segNo = "1";
+//        String productionOrderCode = "2";
+//        String fProductId = "3";
+//        String fPackId = "4";
         if (StringUtils.isEmpty(segNo) || StringUtils.isEmpty(productionOrderCode) || StringUtils.isEmpty(fProductId) || StringUtils.isEmpty(fPackId)){
             r.setResultCode(9001);
             r.setResultMsg("输入参数为空，请重新输入");
             return r;
         }
         String packIdForDetail = partPackService.queryDetail(segNo, productionOrderCode);
+//        String packIdForDetail = "1";
         String packIdForProduct = partPackService.queryProduct(segNo, productionOrderCode, fProductId, fPackId);
         if (StringUtils.isEmpty(packIdForDetail)){
             r.setResultCode(9002);

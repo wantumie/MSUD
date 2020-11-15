@@ -472,25 +472,26 @@
 
     function queryInit() {
         var queryPackId  = $("#queryPackId").val();
-        location.href="/index?partId="+queryPackId
+        location.href="/index?packId="+queryPackId
     }
 
     function queryGmscInit() {
-        var segNo  = $("#segNo").val();
-        var productionOrderCode  = $("#productionOrderCode").val();
-        var fProductId  = $("#fProductId").val();
-        var fPackId  = $("#fPackId").val();
+        var segNo = $("#segNo").val();
+        var productionOrderCode = $("#productionOrderCode").val();
+        var fProductId = $("#fProductId").val();
+        var fPackId = $("#fPackId").val();
         $.ajax({
             url: '/queryAndInsertData',
             // type:'post',
             // contentType: "application/json;charset=utf-8",
             dataType: "json",
             data : {"segNo":segNo, "productionOrderCode":productionOrderCode, "fProductId":fProductId, "fPackId":fPackId},
+            // data : {segNo:segNo, productionOrderCode:productionOrderCode, fProductId:fProductId, fPackId:fPackId},
             success:function (result) {
                 console.log(result);
-                if (result.resultCode != "9002"){
-                    alert("修改成功！");
-                    location.href="/index?partId="+result.resultInfo;
+                if (result.resultCode != "200"){
+                    alert(result.resultMsg);
+                    location.href="/index?packId="+result.resultInfo;
                 }
             }
         });

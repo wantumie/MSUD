@@ -165,6 +165,14 @@ public class TestServiceImpl implements TestService {
                 "        \"productionOrderCode\":\"41Z200917001\"\n" +
                 "    }\n" +
                 "}";
+        String str1 = "{\n" +
+                "\"innerUri\":\"JKProductionOrderService\",\n" +
+                "\"method\":\"queryDetail\",\n" +
+                "\"parameter\":{\n" +
+                "\"segNo\":\"1\",\n" +
+                "\"productionOrderCode\":\"2\"\n" +
+                "}\n" +
+                "}";
         JSONObject jsonObject = JSONObject.parseObject(str);
 
 

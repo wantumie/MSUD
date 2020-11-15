@@ -90,9 +90,9 @@
         <if test="shopsign != null and shopsign != ''">
             牌号 = #{shopsign},
         </if>
-        <if test="factoryProductid != null and factoryProductid != ''">
-            毛重增加 = #{factoryProductid},
-        </if>
+<!--        <if test="factoryProductid != null and factoryProductid != ''">-->
+<!--            毛重增加 = #{factoryProductid},-->
+<!--        </if>-->
         <if test="quantity != null and quantity != ''">
             件数 = #{quantity},
         </if>
