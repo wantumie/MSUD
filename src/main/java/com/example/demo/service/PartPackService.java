@@ -8,9 +8,9 @@ import com.github.pagehelper.PageInfo;
 import java.util.List;
 
 public interface PartPackService {
-    R queryDetail(String segNo, String productionOrderCode);
+    String queryDetail(String segNo, String productionOrderCode);
 
-    JSONObject queryProduct(String segNo, String productionOrderCode, String fProductId, String fPackId);
+    String queryProduct(String segNo, String productionOrderCode, String fProductId, String fPackId);
 
     String queryPartPackInfo(String packId);
 

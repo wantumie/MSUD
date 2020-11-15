@@ -127,7 +127,7 @@
         资源号&nbsp;<input class="inputStyle" id="fProductId">
         捆包号&nbsp;<input class="inputStyle" id="fPackId">
         <p style="text-align: center;margin-top:20px;">
-            <button class="btn" onclick="queryInit()">查询</button>
+            <button class="btn" onclick="queryGmscInit()">查询</button>
 <!--            <button class="btn" onclick="addInit()">新增</button>-->
         </p>
     </div>
@@ -473,6 +473,28 @@
     function queryInit() {
         var queryPackId  = $("#queryPackId").val();
         location.href="/index?partId="+queryPackId
+    }
+
+    function queryGmscInit() {
+        var segNo  = $("#segNo").val();
+        var productionOrderCode  = $("#productionOrderCode").val();
+        var fProductId  = $("#fProductId").val();
+        var fPackId  = $("#fPackId").val();
+        $.ajax({
+            url: '/queryAndInsertData',
+            // type:'post',
+            // contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data : {"segNo":segNo, "productionOrderCode":productionOrderCode, "fProductId":fProductId, "fPackId":fPackId},
+            success:function (result) {
+                console.log(result);
+                if (result.resultCode != "9002"){
+                    alert("修改成功！");
+                    location.href="/index?partId="+result.resultInfo;
+                }
+            }
+        });
+
     }
 
     function  del(id) {

@@ -63,8 +63,8 @@ public class PartPackServiceImpl implements PartPackService {
      * @return
      */
     //http://10.30.91.76/:8088/gmsc-new-service/services/GmscWebService?wsdl
-    public R queryDetail(String segNo, String productionOrderCode){
-        R r = new R();
+    public String queryDetail(String segNo, String productionOrderCode){
+//        R r = new R();
         ProductionOrderInfo productionOrderInfo = new ProductionOrderInfo();
         productionOrderInfo.setSegNo(segNo);
         productionOrderInfo.setProductionOrderCode(productionOrderCode);
@@ -87,7 +87,7 @@ public class PartPackServiceImpl implements PartPackService {
         try {
             // invoke("方法名",参数1,参数2,参数3....);
 //            objects = client.invoke("webService", "传递的参数");
-            objects = client.invoke("queryDetail", jsonObjectSend);
+            objects = client.invoke("analyticalParm", jsonObjectSend.toJSONString());
             System.out.println("返回数据:" + objects[0]);
 
             jsonObject = JSONObject.parseObject(objects[0].toString());
@@ -174,7 +174,7 @@ public class PartPackServiceImpl implements PartPackService {
 
 
 
-        return r;
+        return packid;
     }
 
     /**
@@ -185,7 +185,7 @@ public class PartPackServiceImpl implements PartPackService {
      * @param fPackId
      * @return
      */
-    public  JSONObject queryProduct(String segNo, String productionOrderCode, String fProductId, String fPackId){
+    public  String queryProduct(String segNo, String productionOrderCode, String fProductId, String fPackId){
 
         ProductionOrderInfo productionOrderInfo = new ProductionOrderInfo();
         productionOrderInfo.setSegNo(segNo);
@@ -211,7 +211,7 @@ public class PartPackServiceImpl implements PartPackService {
         try {
             // invoke("方法名",参数1,参数2,参数3....);
 //            objects = client.invoke("webService", "传递的参数");
-            objects = client.invoke("queryProduct", jsonObjectSend);
+            objects = client.invoke("analyticalParm", jsonObjectSend.toJSONString());
             System.out.println("返回数据:" + objects[0]);
             jsonObject = JSONObject.parseObject(objects[0].toString());
         } catch (java.lang.Exception e) {
@@ -240,7 +240,7 @@ public class PartPackServiceImpl implements PartPackService {
         productInfoMap.setUnitedPackid(unitedPackid);
         partPackDao.updatePartPack(productInfoMap);
         //productInfo
-        return jsonObject;
+        return packid;
     }
 
 }
