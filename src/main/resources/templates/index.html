@@ -136,9 +136,7 @@
     捆包号&nbsp;<input class="inputrightStyle" id="queryPackId">
     <p style="text-align: center;margin-top:20px;">
         <button class="btn" onclick="queryInit()">本地查询</button>
-<!--
         <button class="btn" onclick="addInit()">新增</button>
--->
     </p>
     </div>
 </div>
@@ -252,24 +250,169 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="input-group">
-                            <span class="input-group-text" >姓名</span>
-                            <input type="text" class="form-control" aria-describedby="name1" id="partId1" >
+                            <span class="input-group-text" >捆包号</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="packId" name="packIdAdd">
+                        </div>
+                    </div>
+                    <!--                    <div class="col-md-4">-->
+                    <!--                        <div class="input-group">-->
+                    <!--                            <span class="input-group-text" >包装工艺</span>-->
+                    <!--                            <input type="text" class="form-control" aria-describedby="name1" id="packingTypeId">-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >钢厂资源号</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="factoryProductidAdd">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >规格</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="specAdd" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <!--                    <div class="col-md-4">-->
+                    <!--                        <div class="input-group">-->
+                    <!--                            <span class="input-group-text" >品种</span>-->
+                    <!--                            <input type="text" class="form-control" aria-describedby="name1" id="productTypeId">-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >品名</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="productTypeNameAdd">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <span class="input-group-text" >姓名</span>
-                            <input type="text" class="form-control" aria-describedby="name1" id="spec1">
+                            <span class="input-group-text" >牌号</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="shopsignAdd" >
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <span class="input-group-text" id="name">姓名</span>
-                            <input type="text" class="form-control" aria-describedby="name1">
+                            <span class="input-group-text" >件数</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="quantityAdd">
                         </div>
                     </div>
 
                 </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >机组</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="machineIdAdd">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >质量等级</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="qualityGradeNameAdd" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >日期</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="confirmDateAdd">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >并包号</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="unitedPackidAdd">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >检查员</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="confirmPersonAdd" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >零件号</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="partIdAdd">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >母卷号</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="mwrapidAdd">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >炉号</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="stoveNumAdd" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >卷内径</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="innerDiameterAdd">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >卷外径</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="outDiameterAdd">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >卷宽度</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="outWidthAdd">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >收货单位编码</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="consigneeIdAdd">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >收货单位名称</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="consigneeNameAdd">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >收货单位备注</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="consigneeRemarkAdd" >
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button data-dismiss="modal" type="button" class="btn-primary" href="javascript:void(0)" onclick="insertProduct()">确定</button>
@@ -550,15 +693,47 @@
     }
 
     function insertProduct() {
-        var partId = $("#partId").val();    // 获取id为username的<input>框数据
-        var spec = $("#spec").val();    // 获取id为password的<input>框数据
+        var packId = removeAllSpace($("#packIdAdd").val());    // 获取id为username的<input>框数据
+        var factoryProductid = removeAllSpace($("#factoryProductidAdd").val());
+        var spec = removeAllSpace($("#specAdd").val());    // 获取id为password的<input>框数据
+        var productTypeName = removeAllSpace($("#productTypeNameAdd").val());
+        var shopsign = removeAllSpace($("#shopsignAdd").val());
+        var quantity = removeAllSpace($("#quantityAdd").val());
+        var machineId = removeAllSpace($("#machineIdAdd").val());
+        var qualityGradeName = removeAllSpace($("#qualityGradeNameAdd").val());
+        var confirmDate = removeAllSpace($("#confirmDateAdd").val());
+        var unitedPackid = removeAllSpace($("#unitedPackidAdd").val());
+        var confirmPerson = removeAllSpace($("#confirmPersonAdd").val());
+        var partId = removeAllSpace($("#partIdAdd").val());
+        var mwrapid = removeAllSpace($("#mwrapidAdd").val());
+        var stoveNum = removeAllSpace($("#stoveNumAdd").val());
+        var innerDiameter = removeAllSpace($("#innerDiameterAdd").val());
+        var outDiameter = removeAllSpace($("#outDiameterAdd").val());
+        var outWidth = removeAllSpace($("#outWidthAdd").val());
+        var consigneeId = removeAllSpace($("#consigneeIdAdd").val());
+        var consigneeName = removeAllSpace($("#consigneeNameAdd").val());
+        var consigneeRemark = removeAllSpace($("#consigneeRemarkAdd").val());
         $.ajax({
-            url: '/insertInfo',
-            data : {"partId":partId, "spec":spec},
+            url: '/insertpartpackInfo',
+            type:'post',
+            contentType: "application/json;charset=utf-8",
             dataType: "json",
+            data : JSON.stringify({packId:packId, factoryProductid:factoryProductid, spec:spec, productTypeName:productTypeName, shopsign:shopsign, quantity:quantity, machineId:machineId, qualityGradeName:qualityGradeName,
+                confirmDate:confirmDate, unitedPackid:unitedPackid, confirmPerson:confirmPerson, partId:partId, mwrapid:mwrapid, stoveNum:stoveNum, innerDiameter:innerDiameter, outDiameter:outDiameter, outWidth:outWidth,
+                consigneeId:consigneeId, consigneeName:consigneeName, consigneeRemark:consigneeRemark}),
             success:function (result) {
-                if (result.eq("200")){
-                    alert("修改成功！")
+                console.log(result);
+                if (result =="200"){
+                    /*var back = confirm('是否继续操作');
+                    if(back){
+                        console.log(11);
+                    }else{
+                        console.log(2)
+                    }*/
+                    alert("新增成功！");
+                    location.href = "/index";
+                    // window.location.reload();
+
                 }
             }
         });
@@ -566,26 +741,26 @@
 
     function updateProduct() {
 
-        var packId = $("#packId").val();    // 获取id为username的<input>框数据
-        var factoryProductid = $("#factoryProductid").val();
-        var spec = $("#spec").val();    // 获取id为password的<input>框数据
-        var productTypeName = $("#productTypeName").val();
-        var shopsign = $("#shopsign").val();
-        var quantity = $("#quantity").val();
-        var machineId = $("#machineId").val();
-        var qualityGradeName = $("#qualityGradeName").val();
-        var confirmDate = $("#confirmDate").val();
-        var unitedPackid = $("#unitedPackid").val();
-        var confirmPerson = $("#confirmPerson").val();
-        var partId = $("#partId").val();
-        var mwrapid = $("#mwrapid").val();
-        var stoveNum = $("#stoveNum").val();
-        var innerDiameter = $("#innerDiameter").val();
-        var outDiameter = $("#outDiameter").val();
-        var outWidth = $("#outWidth").val();
-        var consigneeId = $("#consigneeId").val();
-        var consigneeName = $("#consigneeName").val();
-        var consigneeRemark = $("#consigneeRemark").val();
+        var packId = removeAllSpace($("#packId").val());    // 获取id为username的<input>框数据
+        var factoryProductid = removeAllSpace($("#factoryProductid").val());
+        var spec = removeAllSpace($("#spec").val());    // 获取id为password的<input>框数据
+        var productTypeName = removeAllSpace($("#productTypeName").val());
+        var shopsign = removeAllSpace($("#shopsign").val());
+        var quantity = removeAllSpace($("#quantity").val());
+        var machineId = removeAllSpace($("#machineId").val());
+        var qualityGradeName = removeAllSpace($("#qualityGradeName").val());
+        var confirmDate = removeAllSpace($("#confirmDate").val());
+        var unitedPackid = removeAllSpace($("#unitedPackid").val());
+        var confirmPerson = removeAllSpace($("#confirmPerson").val());
+        var partId = removeAllSpace($("#partId").val());
+        var mwrapid = removeAllSpace($("#mwrapid").val());
+        var stoveNum = removeAllSpace($("#stoveNum").val());
+        var innerDiameter = removeAllSpace($("#innerDiameter").val());
+        var outDiameter = removeAllSpace($("#outDiameter").val());
+        var outWidth = removeAllSpace($("#outWidth").val());
+        var consigneeId = removeAllSpace($("#consigneeId").val());
+        var consigneeName = removeAllSpace($("#consigneeName").val());
+        var consigneeRemark = removeAllSpace($("#consigneeRemark").val());
 
         $.ajax({
             url: '/updatepartpackInfo',
@@ -611,6 +786,10 @@
                 }
             }
         });
+    }
+
+    function removeAllSpace(str) {
+        return str.replace(/\s+/g, "");
     }
 </script>
 </body>

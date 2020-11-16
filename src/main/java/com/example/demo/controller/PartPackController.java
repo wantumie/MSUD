@@ -68,6 +68,20 @@ public class PartPackController {
         return code;
     }
 
+    @RequestMapping("/insertpartpackInfo")
+    public String insertInfo(@RequestBody ProductInfoMap productInfoMap){
+        String code = "0000";
+
+        try {
+            partPackService.insertPartinfo(productInfoMap);
+            code = "200";
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("更新报错");
+        }
+
+        return code;
+    }
     @RequestMapping("/queryAndInsertData")
     public R queryAndInsertData(String segNo, String productionOrderCode, String fProductId,  String fPackId){
 //    public R queryAndInsertData(@RequestBody ProductionOrderInfo productionOrderInfo){
