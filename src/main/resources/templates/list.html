@@ -368,7 +368,7 @@
     function updateProduct() {
 
         var partId = $("#partId").val();    // 获取id为username的<input>框数据
-        var spec = $("#spec").val();    // 获取id为password的<input>框数据
+        var spec = removeAllSpace($("#spec").val());    // 获取id为password的<input>框数据
         $.ajax({
             url: '/updateInfo',
             data : {"partId":partId, "spec":spec},
@@ -389,6 +389,10 @@
                 }
             }
         });
+    }
+
+    function removeAllSpace(str) {
+        return str.replace(/\s+/g, "");
     }
 </script>
 </body>
