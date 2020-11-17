@@ -251,7 +251,7 @@
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text" >捆包号</span>
-                            <input type="text" class="form-control" aria-describedby="name1" id="packId" name="packIdAdd">
+                            <input type="text" class="form-control" aria-describedby="name1" id="packIdAdd" name="packIdAdd">
                         </div>
                     </div>
                     <!--                    <div class="col-md-4">-->
@@ -693,7 +693,8 @@
     }
 
     function insertProduct() {
-        var packId = removeAllSpace($("#packIdAdd").val());    // 获取id为username的<input>框数据
+        var packId = $("#packIdAdd").val();    // 获取id为username的<input>框数据
+        // var packId = removeAllSpace($("#packIdAdd").val());    // 获取id为username的<input>框数据
         var factoryProductid = removeAllSpace($("#factoryProductidAdd").val());
         var spec = removeAllSpace($("#specAdd").val());    // 获取id为password的<input>框数据
         var productTypeName = removeAllSpace($("#productTypeNameAdd").val());
