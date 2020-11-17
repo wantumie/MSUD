@@ -99,57 +99,86 @@ public class PartPackServiceImpl implements PartPackService {
 
         JSONObject resultJSONObject = jsonObject;
         String packid = null;
+        String partId = null;
+        String factoryProductId = null;
+        String spec = null;
+        String productTypeName = null;
+        String shopsign = null;
+        String mwrapid = null;
+        String stoveNum = null;
+        String qualityGradeName = null;
         if (resultJSONObject.size() != 0 && !"0".equals(resultJSONObject.get("msgCode"))){
             JSONArray rmPartPackListJson = resultJSONObject.getJSONArray("rmPartPackList");
             JSONObject rmPartPackList = new JSONObject();
             if(rmPartPackListJson.size() > 0){
                 rmPartPackList = rmPartPackListJson.getJSONObject(0);
+                //        JSONObject rmPartPackList = resultJSONObject.getJSONObject("rmPartPackList");//投料捆包信息
+                log.info("投料捆包信息--rmPartPackList："+rmPartPackList);
+                packid = rmPartPackList.getString("packid");
+                partId = rmPartPackList.getString("partId");
+                factoryProductId = rmPartPackList.getString("factoryProductId");
+                spec = rmPartPackList.getString("spec");//规格
+                productTypeName = rmPartPackList.getString("productTypeName");
+                shopsign = rmPartPackList.getString("shopsign");
+                mwrapid = rmPartPackList.getString("mwrapid");//母卷号
+                stoveNum = rmPartPackList.getString("stoveNum");//炉号
+                qualityGradeName = rmPartPackList.getString("qualityGradeName");//炉号
             }
 
-//        JSONObject rmPartPackList = resultJSONObject.getJSONObject("rmPartPackList");//投料捆包信息
-            log.info("投料捆包信息--rmPartPackList："+rmPartPackList);
-            packid = rmPartPackList.getString("packid");
-            String factoryProductId = rmPartPackList.getString("factoryProductId");
-            String spec = rmPartPackList.getString("spec");//规格
-            String productTypeName = rmPartPackList.getString("productTypeName");
-            String shopsign = rmPartPackList.getString("shopsign");
-            String mwrapid = rmPartPackList.getString("mwrapid");//母卷号
-            String stoveNum = rmPartPackList.getString("stoveNum");//炉号
+
 
 
             //confirmList
             JSONArray confirmListJson = resultJSONObject.getJSONArray("confirmList");
             JSONObject confirmList = new JSONObject();
+            String confirmDate = null;
+            String confirmPerson = null;
             if(confirmListJson.size() > 0){
                 confirmList = confirmListJson.getJSONObject(0);
+
+                confirmDate = confirmList.getString("confirmDate");
+                confirmPerson = confirmList.getString("confirmPerson");//检验员（确认人）
             }
-            String confirmDate = confirmList.getString("confirmDate");
-            String confirmPerson = confirmList.getString("confirmPerson");//检验员（确认人）
+
 
             //dataInfo
             JSONArray dataInfoJson = resultJSONObject.getJSONArray("dataInfo");
             JSONObject dataInfo = new JSONObject();
+            String machineId = null;
             if(confirmListJson.size() > 0){
                 dataInfo = dataInfoJson.getJSONObject(0);
+
+                machineId = dataInfo.getString("machineId");//机组代码
+
             }
-            String machineId = dataInfo.getString("machineId");//机组代码
 
             //fmPartList
             JSONArray fmPartListJson = resultJSONObject.getJSONArray("fmPartList");
             JSONObject fmPartList = new JSONObject();
+            String innerDiameter = null;
+            String outWidth = null;
+            String consigneeId = null;
+            String consigneeName = null;
+            String consigneeRemark = null;
+            String outDiameter = null;
             if(fmPartListJson.size() > 0){
                 fmPartList = fmPartListJson.getJSONObject(0);
+
+                innerDiameter = fmPartList.getString("innerDiameter");//卷内径
+                outWidth = fmPartList.getString("outWidth");//卷宽度(立放时的宽度)
+                consigneeId = fmPartList.getString("consigneeId");//收货单位编码
+                consigneeName = fmPartList.getString("consigneeName");//收货单位名称
+                consigneeRemark = fmPartList.getString("consigneeRemark");//收货单位名称
+                outDiameter = fmPartList.getString("outDiameter");//卷外径
             }
 
-            String innerDiameter = fmPartList.getString("innerDiameter");//卷内径
-            String outWidth = fmPartList.getString("outWidth");//卷宽度(立放时的宽度)
-            String consigneeId = fmPartList.getString("consigneeId");//收货单位编码
-            String consigneeName = fmPartList.getString("consigneeName");//收货单位名称
-            String consigneeRemark = fmPartList.getString("consigneeRemark");//收货单位名称
-            String outDiameter = fmPartList.getString("outDiameter");//卷外径
+
+
+
 
             ProductInfoMap productInfoMap = new ProductInfoMap();
             productInfoMap.setPackId(packid);
+            productInfoMap.setPartId(partId);
             productInfoMap.setFactoryProductid(factoryProductId);
             productInfoMap.setSpec(spec);
             productInfoMap.setProductTypeName(productTypeName);
@@ -165,6 +194,7 @@ public class PartPackServiceImpl implements PartPackService {
             productInfoMap.setConsigneeName(consigneeName);
             productInfoMap.setConsigneeRemark(consigneeRemark);
             productInfoMap.setMachineId(machineId);
+            productInfoMap.setQualityGradeName(qualityGradeName);
 
             partPackDao.insertPartPack(productInfoMap);
         }
@@ -215,16 +245,16 @@ public class PartPackServiceImpl implements PartPackService {
         if (resultJSONObject.size() != 0 && !"0".equals(resultJSONObject.get("msgCode"))){
             JSONObject productInfo = resultJSONObject.getJSONObject("productInfo");
             packid = productInfo.getString("packid");
-            String partid = productInfo.getString("partid");
+//            String partid = productInfo.getString("partid");
             String quantity = productInfo.getString("quantity");
-            String qualityGradeName = productInfo.getString("qualityGradeName");
+//            String qualityGradeName = productInfo.getString("qualityGradeName");
             String unitedPackid = productInfo.getString("unitedPackid");//并包号
 
             ProductInfoMap productInfoMap = new ProductInfoMap();
             productInfoMap.setPackId(packid);
-            productInfoMap.setPartId(partid);
+//            productInfoMap.setPartId(partid);
             productInfoMap.setQuantity(quantity);
-            productInfoMap.setQualityGradeName(qualityGradeName);
+//            productInfoMap.setQualityGradeName(qualityGradeName);
             productInfoMap.setUnitedPackid(unitedPackid);
             partPackDao.updatePartPack(productInfoMap);
         }

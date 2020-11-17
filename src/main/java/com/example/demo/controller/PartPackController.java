@@ -103,14 +103,16 @@ public class PartPackController {
         }
         String packIdForDetail = partPackService.queryDetail(segNo, productionOrderCode);
 //        String packIdForDetail = "1";
-        String packIdForProduct = partPackService.queryProduct(segNo, productionOrderCode, fProductId, fPackId);
+//        String packIdForProduct = partPackService.queryProduct(segNo, productionOrderCode, fProductId, fPackId);
         if (StringUtils.isEmpty(packIdForDetail)){
             r.setResultCode(9002);
             r.setResultMsg("生产工单明细表没有对应数据");
-        }else if (StringUtils.isEmpty(packIdForProduct)){
-            r.setResultCode(9003);
-            r.setResultMsg("生产工单产出信息表没有对应数据");
-        } else {
+        }
+//        else if (StringUtils.isEmpty(packIdForProduct)){
+//            r.setResultCode(9003);
+//            r.setResultMsg("生产工单产出信息表没有对应数据");
+//        }
+        else {
             r.setResultCode(200);
             r.setResultMsg("查询成功！");
         }
