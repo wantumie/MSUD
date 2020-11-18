@@ -772,10 +772,13 @@
             // data : {segNo:segNo, productionOrderCode:productionOrderCode, fProductId:fProductId, fPackId:fPackId},
             success:function (result) {
                 console.log(result);
-                if (result.resultCode != "200"){
+                if (result.resultCode == 200){
                     alert(result.resultMsg);
-                    location.href="/index?packId="+result.resultInfo;
+
+                }else {
+                    alert("获取失败！")
                 }
+                location.href="/index";
             }
         });
 
