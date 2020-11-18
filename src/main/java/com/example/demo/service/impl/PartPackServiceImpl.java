@@ -84,17 +84,17 @@ public class PartPackServiceImpl implements PartPackService {
         ////////////////////////////////////////////////////////////
         Object[] objects = new Object[0];
         JSONObject jsonObject = new JSONObject();
-//        try {
-//            JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
-//            Client client = dcf.createClient("http://10.30.91.76:8088/gmsc-new-service/services/GmscWebService?wsdl");
-//            // invoke("方法名",参数1,参数2,参数3....);
-////            objects = client.invoke("webService", "传递的参数");
-//            objects = client.invoke("analyticalParm", jsonObjectSend.toJSONString());
-//            jsonObject = JSONObject.parseObject(objects[0].toString());
-//        } catch (java.lang.Exception e) {
-//            e.printStackTrace();
-//            log.info("queryProduct请求失败！");
-//        }
+        try {
+            JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+            Client client = dcf.createClient("http://10.30.91.76:8088/gmsc-new-service/services/GmscWebService?wsdl");
+            // invoke("方法名",参数1,参数2,参数3....);
+//            objects = client.invoke("webService", "传递的参数");
+            objects = client.invoke("analyticalParm", jsonObjectSend.toJSONString());
+            jsonObject = JSONObject.parseObject(objects[0].toString());
+        } catch (java.lang.Exception e) {
+            e.printStackTrace();
+            log.info("queryProduct请求失败！");
+        }
 
         ////////////////////////////////////////////////////////////
 
