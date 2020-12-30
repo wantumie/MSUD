@@ -54,8 +54,7 @@ public class PartPackController {
     public String updateInfo(@RequestBody ProductInfoMap productInfoMap){
         String code = "0000";
         try {
-            partPackService.updatePartinfo(productInfoMap);
-            code = "200";
+            code = partPackService.updatePartinfo(productInfoMap);
         }catch (Exception e){
             e.printStackTrace();
             System.out.println("更新报错");
@@ -67,11 +66,10 @@ public class PartPackController {
     public String insertInfo(@RequestBody ProductInfoMap productInfoMap){
         String code = "0000";
         try {
-            partPackService.insertPartinfo(productInfoMap);
-            code = "200";
+            code = partPackService.insertPartinfo(productInfoMap);
         }catch (Exception e){
             e.printStackTrace();
-            System.out.println("更新报错");
+            System.out.println("新增报错");
         }
         return code;
     }
@@ -79,6 +77,7 @@ public class PartPackController {
     public R queryAndInsertData(String segNo, String productionOrderCode, String fProductId,  String fPackId) throws ParseException {
 //    public R queryAndInsertData(@RequestBody ProductionOrderInfo productionOrderInfo){
 //    public R queryAndInsertData(){
+        segNo = "00112";
 
         R r = new R();
 //        String segNo = productionOrderInfo.getSegNo();

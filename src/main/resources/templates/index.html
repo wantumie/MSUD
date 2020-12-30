@@ -122,7 +122,7 @@
 </div>-->
 <div style="text-align: center;padding:15px;margin-bottom:30px;">
     <div style="width:48%;float:left;border:1px solid #333;text-align: center;padding:15px;margin-bottom:30px;">
-        公司代码&nbsp;<input class="inputStyle" id="segNo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<!--        公司代码&nbsp;<input class="inputStyle" id="segNo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
         订单号&nbsp;<input class="inputStyle" id="productionOrderCode">
 <!--        资源号&nbsp;<input class="inputStyle" id="fProductId">-->
 <!--        捆包号&nbsp;<input class="inputStyle" id="fPackId">-->
@@ -149,6 +149,9 @@
         <th>卷内径</th>
         <th>卷外径</th>
         <th>卷宽度</th>
+        <th>十字臂号</th>
+        <th>臂上序号</th>
+        <th>臂号加序号</th>
         <th>堆垛方式</th>
         <th>捆包卷数</th>
         <th>堆垛托盘号</th>
@@ -186,6 +189,9 @@
         <td th:text="${product.innerDiameter}"></td>
         <td th:text="${product.outDiameter}"></td>
         <td th:text="${product.outWidth}"></td>
+        <td th:text="${product.armNum}"></td>
+        <td th:text="${product.serialNum}"></td>
+        <td th:text="${product.armAndserialNum}"></td>
         <td th:text="${product.stacking}"></td>
         <td th:text="${product.putinQty}"></td>
         <td th:text="${product.stackingNo}"></td>
@@ -269,29 +275,7 @@
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text" >捆包号</span>
-                            <input type="text" class="form-control" aria-describedby="name1" id="packIdAdd" name="packIdAdd">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            <span class="input-group-text" >卷内径</span>
-                            <input type="text" class="form-control" aria-describedby="name1" id="innerDiameterAdd">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            <span class="input-group-text" >卷外径</span>
-                            <input type="text" class="form-control" aria-describedby="name1" id="outDiameterAdd">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            <span class="input-group-text" >卷宽度</span>
-                            <input type="text" class="form-control" aria-describedby="name1" id="outWidthAdd" >
+                            <input type="text" class="form-control" BackColor="#669900" aria-describedby="name1" id="packIdAdd" name="packIdAdd">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -302,8 +286,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <span class="input-group-text" >捆包卷数</span>
-                            <input type="text" class="form-control" aria-describedby="name1" id="putinQtyAdd" >
+                            <span class="input-group-text" >堆垛托盘号</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="stackingNoAdd" >
                         </div>
                     </div>
                 </div>
@@ -312,8 +296,76 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="input-group">
-                            <span class="input-group-text" >堆垛托盘号</span>
-                            <input type="text" class="form-control" aria-describedby="name1" id="stackingNoAdd" >
+                            <span class="input-group-text" >捆包卷数</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="putinQtyAdd" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >卷宽度</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="outWidthAdd" >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >卷内径</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="innerDiameterAdd">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >十字臂号</span>
+<!--                            <input type="text" class="form-control" aria-describedby="name1" id="armNumAdd" >-->
+                            <select name="armNumAdd" id="armNumAdd" class="form-control">
+                                <option value="01">01</option>
+                                <option valeu="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >臂上序号</span>
+<!--                            <input type="text" class="form-control" aria-describedby="name1" id="serialNumAdd" >-->
+                            <select name="serialNumAdd" id="serialNumAdd" class="form-control" >
+                                <option value="01">01</option>
+                                <option valeu="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >臂号加序号</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="armAndserialNumAdd" readonly="readonly">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >卷外径</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="outDiameterAdd">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -518,20 +570,26 @@
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <span class="input-group-text" >卷内径</span>
-                            <input type="text" class="form-control" aria-describedby="name1" id="innerDiameter">
+                            <span class="input-group-text" >堆垛区</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="stacking">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <span class="input-group-text" >卷外径</span>
-                            <input type="text" class="form-control" aria-describedby="name1" id="outDiameter">
+                            <span class="input-group-text" >堆垛托盘号</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="stackingNo" >
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >捆包卷数</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="putinQty" >
+                        </div>
+                    </div>
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text" >卷宽度</span>
@@ -540,24 +598,66 @@
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <span class="input-group-text" >堆垛区</span>
-                            <input type="text" class="form-control" aria-describedby="name1" id="stacking">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            <span class="input-group-text" >捆包卷数</span>
-                            <input type="text" class="form-control" aria-describedby="name1" id="putinQty" >
+                            <span class="input-group-text" >卷内径</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="innerDiameter">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-body">
                 <div class="row">
+
                     <div class="col-md-4">
                         <div class="input-group">
-                            <span class="input-group-text" >堆垛托盘号</span>
-                            <input type="text" class="form-control" aria-describedby="name1" id="stackingNo" >
+                            <span class="input-group-text" >十字臂号</span>
+<!--                            <input type="text" class="form-control" aria-describedby="name1" id="armNum" >-->
+                            <select name="armNum" id="armNum" class="form-control" >
+                                <option value="01">01</option>
+                                <option valeu="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >臂上序号</span>
+<!--                            <input type="text" class="form-control" aria-describedby="name1" id="serialNum" >-->
+                            <select name="serialNum" id="serialNum" class="form-control" >
+                                <option value="01">01</option>
+                                <option valeu="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >臂号加序号</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="armAndserialNum" readonly="readonly">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text" >卷外径</span>
+                            <input type="text" class="form-control" aria-describedby="name1" id="outDiameter">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -752,6 +852,23 @@
 </script>
 <script type="text/javascript">
 
+    document.getElementById('packIdAdd').style.background = '#00FF00';
+    document.getElementById('packId').style.background = '#00FF00';
+    document.getElementById('stackingAdd').style.background = '#00FF00';
+    document.getElementById('stacking').style.background = '#00FF00';
+    document.getElementById('stackingNoAdd').style.background = '#00FF00';
+    document.getElementById('stackingNo').style.background = '#00FF00';
+    document.getElementById('putinQtyAdd').style.background = '#00FF00';
+    document.getElementById('putinQty').style.background = '#00FF00';
+    document.getElementById('outWidthAdd').style.background = '#00FF00';
+    document.getElementById('outWidth').style.background = '#00FF00';
+    document.getElementById('innerDiameterAdd').style.background = '#00FF00';
+    document.getElementById('innerDiameter').style.background = '#00FF00';
+    document.getElementById('armNumAdd').style.background = '#00FF00';
+    document.getElementById('armNum').style.background = '#00FF00';
+    document.getElementById('serialNumAdd').style.background = '#00FF00';
+    document.getElementById('serialNum').style.background = '#00FF00';
+
 
     function queryInit() {
         var queryPackId  = $("#queryPackId").val();
@@ -792,7 +909,7 @@
     }
 
     function updateInit(packid) {
-        console.log(packid);
+        // console.log(packid);
         // var partId = $("#partId").val();
         $('#updateModal').modal('show');
         $.ajax({
@@ -800,11 +917,11 @@
             data : {"packid":packid},
             dataType: "json",
             success:function (result) {
-                console.log(result);
+                // console.log(result);
                 var data = result.list;
                 if (data != null && data.length > 0){
                     for (var i=0;i<data.length;i++){
-                        console.log(data[i].packId);
+                        // console.log(data[i].packId);
                         $('#packId').val(data[i].packId);
                         $('#innerDiameter').val(data[i].innerDiameter);
                         $('#outDiameter').val(data[i].outDiameter);
@@ -836,6 +953,9 @@
                         $('#grossWeightAdd').val(data[i].grossWeightAdd);
                         $('#putinWeight').val(data[i].putinWeight);
                         $('#grossWeight').val(data[i].grossWeight);
+                        $('#armNum').val(data[i].armNum);
+                        $('#serialNum').val(data[i].serialNum);
+                        $('#armAndserialNum').val(data[i].armAndserialNum);
                     }
                 }
             }
@@ -875,6 +995,9 @@
         var grossWeightAdd = removeAllSpace($("#grossWeightAddAdd").val());
         var putinWeight = removeAllSpace($("#putinWeightAdd").val());
         var grossWeight = removeAllSpace($("#grossWeightForAdd").val());
+        var armNum = $("#armNumAdd").val();
+        var serialNum = $("#serialNumAdd").val();
+        // var armAndserialNum = removeAllSpace($("#armAndserialNumAdd").val());
         $.ajax({
             url: '/insertpartpackInfo',
             type:'post',
@@ -882,10 +1005,11 @@
             dataType: "json",
             data : JSON.stringify({packId:packId, innerDiameter:innerDiameter, outDiameter:outDiameter, outWidth:outWidth, stacking:stacking, putinQty:putinQty, stackingNo:stackingNo, factoryProductid:factoryProductid, standard:standard, spec:spec,
                 productTypeId:productTypeId, productTypeName:productTypeName, shopsign:shopsign, coilNo:coilNo, quantity:quantity, machineId:machineId, qualityGradeName:qualityGradeName, consigneeId:consigneeId, consigneeName:consigneeName, consigneeRemark:consigneeRemark,
-                modiDate:modiDate, modiTime:modiTime, unitedPackid:unitedPackid,stoveNum:stoveNum, modiPerson:modiPerson, partId:partId, partName:partName, mwrapid:mwrapid, grossWeightAdd:grossWeightAdd, putinWeight:putinWeight, grossWeight:grossWeight}),
+                modiDate:modiDate, modiTime:modiTime, unitedPackid:unitedPackid,stoveNum:stoveNum, modiPerson:modiPerson, partId:partId, partName:partName, mwrapid:mwrapid, grossWeightAdd:grossWeightAdd, putinWeight:putinWeight,
+                grossWeight:grossWeight, armNum:armNum, serialNum:serialNum}),
             success:function (result) {
                 console.log(result);
-                if (result =="200"){
+                if (result =="9999"){
                     /*var back = confirm('是否继续操作');
                     if(back){
                         console.log(11);
@@ -896,6 +1020,10 @@
                     location.href = "/index";
                     // window.location.reload();
 
+                }else if(result =="1000"){
+                    alert("臂号加序号重复！");
+                }else {
+                    alert("新增失败！");
                 }
             }
         });
@@ -933,6 +1061,10 @@
         var grossWeightAdd = removeAllSpace($("#grossWeightAdd").val());
         var putinWeight = removeAllSpace($("#putinWeight").val());
         var grossWeight = removeAllSpace($("#grossWeight").val());
+        var armNum = $("#armNum").val();
+        var serialNum = $("#serialNum").val();
+        // var armAndserialNum = removeAllSpace($("#armAndserialNum").val());
+        <!--            {armNum},{serialNum},{armAndserialNum}-->
         $.ajax({
             url: '/updatepartpackInfo',
             type:'post',
@@ -940,10 +1072,11 @@
             dataType: "json",
             data : JSON.stringify({packId:packId, innerDiameter:innerDiameter, outDiameter:outDiameter, outWidth:outWidth, stacking:stacking, putinQty:putinQty, stackingNo:stackingNo, factoryProductid:factoryProductid, standard:standard, spec:spec,
                 productTypeId:productTypeId, productTypeName:productTypeName, shopsign:shopsign, coilNo:coilNo, quantity:quantity, machineId:machineId, qualityGradeName:qualityGradeName, consigneeId:consigneeId, consigneeName:consigneeName, consigneeRemark:consigneeRemark,
-                modiDate:modiDate, modiTime:modiTime, unitedPackid:unitedPackid,stoveNum:stoveNum, modiPerson:modiPerson, partId:partId, partName:partName, mwrapid:mwrapid, grossWeightAdd:grossWeightAdd, putinWeight:putinWeight, grossWeight:grossWeight}),
+                modiDate:modiDate, modiTime:modiTime, unitedPackid:unitedPackid,stoveNum:stoveNum, modiPerson:modiPerson, partId:partId, partName:partName, mwrapid:mwrapid, grossWeightAdd:grossWeightAdd, putinWeight:putinWeight, grossWeight:grossWeight, armNum:armNum, serialNum:serialNum}),
             success:function (result) {
+                debugger;
                 console.log(result);
-                if (result =="200"){
+                if (result =="9999"){
                     /*var back = confirm('是否继续操作');
                     if(back){
                         console.log(11);
@@ -951,9 +1084,14 @@
                         console.log(2)
                     }*/
                     alert("修改成功！");
-                    location.href = "/index";
+                    // location.href = "/index";
+                    location.reload();
                     // window.location.reload();
 
+                }else if(result =="1000"){
+                    alert("臂号加序号重复！");
+                }else {
+                    alert("修改失败！");
                 }
             }
         });

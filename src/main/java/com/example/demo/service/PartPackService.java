@@ -17,7 +17,7 @@ public interface PartPackService {
 
     PageInfo<ProductInfoMap> queryPartPackInfoList(String packId, int pageNo, int pageSize);
 
-    void updatePartinfo(ProductInfoMap productInfoMap);
+    String updatePartinfo(ProductInfoMap productInfoMap) throws Exception;
 
-    void insertPartinfo(ProductInfoMap productInfoMap);
+    String insertPartinfo(ProductInfoMap productInfoMap) throws Exception;
 }

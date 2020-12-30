@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  * describe
@@ -42,6 +43,8 @@ public class ProductInfoMap {
     private float grossWeightAdd;//毛重增加
     private float putinWeight;//净重
     private float grossWeight;//毛重
-
     private String packingTypeId;//包装工艺
+    private String armNum = "";//十字臂号
+    private String serialNum = "";//臂上序号
+    private String armAndserialNum = "";//臂号加序号
 }

@@ -34,6 +34,9 @@
         <result column="净重" property="putinWeight" jdbcType="REAL"/>
         <result column="毛重" property="grossWeight" jdbcType="REAL" />
         <result column="钢厂资源号" property="factoryProductid" jdbcType="REAL" />
+        <result column="十字臂号" property="armNum" />
+        <result column="臂上序号" property="serialNum" />
+        <result column="臂号加序号" property="armAndserialNum" />
     </resultMap>
 
     <select id="queryPartPack" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -45,10 +48,11 @@
         [规格],[牌号],[毛重增加],[件数],[炉号],
         [机组],[质量等级],[收货单位代号],[收货单位名称],
         [收货备注],[客户零件号],[客户零件名称],[检查员], [净重],
-        [毛重],[捆包号],[钢厂资源号])
+        [毛重],[捆包号],[钢厂资源号],[十字臂号],[臂上序号],[臂号加序号])
         VALUES (#{coilNo}, #{modiDate}, #{modiTime}, #{mwrapid}, #{unitedPackid},#{putinQty}, #{stacking}, #{stackingNo},
         #{outDiameter}, #{innerDiameter},#{outWidth}, #{productTypeName}, #{standard}, #{spec}, #{shopsign}, #{grossWeightAdd}, #{quantity}, #{stoveNum}, #{machineId},
-            #{qualityGradeName}, #{consigneeId}, #{consigneeName}, #{consigneeRemark},#{partId},#{partName}, #{modiPerson}, #{putinWeight},#{grossWeight}, #{packId}, #{factoryProductid})
+            #{qualityGradeName}, #{consigneeId}, #{consigneeName}, #{consigneeRemark},#{partId},#{partName}, #{modiPerson}, #{putinWeight},#{grossWeight}, #{packId},
+             #{factoryProductid}, #{armNum}, #{serialNum}, #{armAndserialNum})
     </insert>
 
     <update id="updatePartPack" parameterType="com.example.demo.entity.ProductInfoMap">
@@ -138,17 +142,31 @@
         <if test="factoryProductid != null and factoryProductid != ''">
             钢厂资源号 = #{factoryProductid},
         </if>
-       <if test="grossWeight != null and grossWeight != ''">
+        <if test="grossWeight != null and grossWeight != ''">
             毛重 = #{grossWeight},
+        </if>
+        <if test="armNum != null and armNum != ''">
+            十字臂号 = #{armNum},
+        </if>
+        <if test="serialNum != null and serialNum != ''">
+            臂上序号 = #{serialNum},
+        </if>
+        <if test="armAndserialNum != null and armAndserialNum != ''">
+            臂号加序号 = #{armAndserialNum},
         </if>
         捆包号 = #{packId}
         where 捆包号 = #{packId}
     </update>
 
     <select id="queryPartPackList" parameterType="String" resultMap="BaseResultMap">
-         select 钢卷号,日期, 时间,母卷号, 并包号, 捆包卷数, 堆垛区, 产品外径, 产品内径, 产品宽度, 品名, 标准, 规格, 牌号, 毛重增加, 件数, 炉号, 机组, 质量等级, 收货单位代号, 收货单位名称, 收货备注, 客户零件号, 客户零件名称, 检查员, 净重, 捆包号, 钢厂资源号, 毛重, 堆垛托盘号 from "宝钢数据库表"
-        <if test="packid != null and packid != ''">
-        where 捆包号 = #{packid}
+         select 钢卷号,日期, 时间,母卷号, 并包号, 捆包卷数, 堆垛区, 产品外径, 产品内径, 产品宽度, 品名, 标准, 规格, 牌号, 毛重增加, 件数, 炉号, 机组, 质量等级, 收货单位代号, 收货单位名称, 收货备注, 客户零件号, 客户零件名称, 检查员, 净重, 捆包号, 钢厂资源号, 毛重, 堆垛托盘号, 十字臂号, 臂上序号, 臂号加序号 from "宝钢数据库表"
+        <if test="packId != null and packId != ''">
+        where 捆包号 = #{packId}
         </if>
+--         order by "捆包号"
+    </select>
+    
+    <select id="isRepeat" parameterType="com.example.demo.entity.ProductInfoMap" resultType="integer">
+        select count(1) from 宝钢数据库表 where 十字臂号 = #{armNum} and 臂上序号 = #{serialNum} and 捆包号 &lt;&gt; #{packId}
     </select>
 </mapper>

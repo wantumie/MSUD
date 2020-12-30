@@ -14,6 +14,8 @@ public interface PartPackDao {
 
     ProductInfoMap queryPartPack(String packId);
 
-    List<ProductInfoMap> queryPartPackList(@Param("packid")String packid);
+    List<ProductInfoMap> queryPartPackList(@Param("packId")String packId);
+
+    Integer isRepeat(ProductInfoMap productInfoMap);
 
 }

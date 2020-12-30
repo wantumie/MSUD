@@ -49,13 +49,40 @@ public class PartPackServiceImpl implements PartPackService {
     }
 
     @Override
-    public void insertPartinfo(ProductInfoMap productInfoMap) {
-        partPackDao.insertPartPack(productInfoMap);
+    public String insertPartinfo(ProductInfoMap productInfoMap) throws Exception {
+//        String armNum = productInfoMap.getArmNum();
+//        String serialNum = productInfoMap.getSerialNum();
+//        if (armNum != null && serialNum != null){
+            String armAndserialNum = productInfoMap.getArmNum() + productInfoMap.getSerialNum();
+            productInfoMap.setArmAndserialNum(armAndserialNum);
+//        }
+        String code = "9999";
+        int count = partPackDao.isRepeat(productInfoMap);
+        if (count == 0){
+            partPackDao.insertPartPack(productInfoMap);
+        }else {
+            code = "1000";
+        }
+        return code;
+
     }
 
     @Override
-    public void updatePartinfo(ProductInfoMap productInfoMap) {
-        partPackDao.updatePartPack(productInfoMap);
+    public String updatePartinfo(ProductInfoMap productInfoMap) throws Exception {
+//        String armNum = productInfoMap.getArmNum();
+//        String serialNum = productInfoMap.getSerialNum();
+//        if (armNum != null && serialNum != null){
+            String armAndserialNum = productInfoMap.getArmNum() + productInfoMap.getSerialNum();
+            productInfoMap.setArmAndserialNum(armAndserialNum);
+//        }
+        String code = "9999";
+        int count = partPackDao.isRepeat(productInfoMap);
+        if (count == 0){
+            partPackDao.updatePartPack(productInfoMap);
+        }else {
+            code = "1000";
+        }
+        return code;
     }
 
 
