@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -132,5 +134,48 @@ public class PartPackController {
 //        mv.addObject("productInfoList", productInfoList);
 //        mv.setViewName("/index.html");
         return productInfoList;
+    }
+
+    @RequestMapping("/getArmNum")
+    public List<String> getArmNum(){
+        List<String> list = new ArrayList<>();
+        list.add("01");
+        list.add("02");
+        list.add("03");
+        list.add("04");
+
+        List<String> listSerialNum = partPackService.getArmNum();
+        list.removeAll(listSerialNum);
+
+//        List<Map> listmap = new ArrayList<>();
+//        Map map = new HashMap();
+//        for (int i = 1; i <= list.size(); i++) {
+//            map.put("0"+list.get(i-1), "0"+list.get(i-1));
+//            listmap.add(map);
+//        }
+        return list;
+    }
+
+    @RequestMapping("/getSerialNum")
+    public List<String> getSerialNum(String armNum, String packId){
+        List<String> listAllSerialNum = new ArrayList<>();
+        listAllSerialNum.add("01");
+        listAllSerialNum.add("02");
+        listAllSerialNum.add("03");
+        listAllSerialNum.add("04");
+        listAllSerialNum.add("05");
+        listAllSerialNum.add("06");
+        listAllSerialNum.add("07");
+        listAllSerialNum.add("08");
+        listAllSerialNum.add("09");
+        listAllSerialNum.add("10");
+        listAllSerialNum.add("11");
+        listAllSerialNum.add("12");
+        List<String> listSerialNum = partPackService.getSerialNum(armNum);
+        ProductInfoMap productInfoMap = partPackService.queryPartPackInfo(packId);
+        listSerialNum.remove(productInfoMap.getSerialNum());
+        listAllSerialNum.removeAll(listSerialNum);
+//        listAllSerialNum.add(productInfoMap.getSerialNum());
+        return listAllSerialNum;
     }
 }

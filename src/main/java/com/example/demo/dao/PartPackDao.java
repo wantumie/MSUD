@@ -12,10 +12,14 @@ public interface PartPackDao {
 
     void updatePartPack(ProductInfoMap productInfoMap);
 
-    ProductInfoMap queryPartPack(String packId);
+    ProductInfoMap queryPartPack(@Param("packId")String packId);
 
     List<ProductInfoMap> queryPartPackList(@Param("packId")String packId);
 
     Integer isRepeat(ProductInfoMap productInfoMap);
+
+    List<String> getArmNum();
+
+    List<String> getSerialNum(String armNum);
 
 }

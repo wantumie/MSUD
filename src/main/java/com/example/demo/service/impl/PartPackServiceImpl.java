@@ -42,10 +42,13 @@ public class PartPackServiceImpl implements PartPackService {
     }
 
 
-    public String queryPartPackInfo(String packId){
-        ProductInfoMap productInfoMap = partPackDao.queryPartPack(packId);
-        JSONObject jsonObject = (JSONObject) JSON.toJSON(productInfoMap);
-        return jsonObject.toJSONString();
+    public ProductInfoMap queryPartPackInfo(String packId){
+        ProductInfoMap productInfoMap = new ProductInfoMap();
+        if (!StringUtils.isEmpty(packId)){
+            productInfoMap = partPackDao.queryPartPack(packId);
+        }
+//        JSONObject jsonObject = (JSONObject) JSON.toJSON(productInfoMap);
+        return productInfoMap;
     }
 
     @Override
@@ -65,6 +68,16 @@ public class PartPackServiceImpl implements PartPackService {
         }
         return code;
 
+    }
+
+    @Override
+    public List<String> getSerialNum(String armNum) {
+        return partPackDao.getSerialNum(armNum);
+    }
+
+    @Override
+    public List<String> getArmNum() {
+        return partPackDao.getArmNum();
     }
 
     @Override

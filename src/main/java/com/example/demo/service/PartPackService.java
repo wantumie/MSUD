@@ -13,11 +13,15 @@ public interface PartPackService {
 
     String queryProduct(String segNo, String productionOrderCode, String fProductId, String fPackId);
 
-    String queryPartPackInfo(String packId);
+    ProductInfoMap queryPartPackInfo(String packId);
 
     PageInfo<ProductInfoMap> queryPartPackInfoList(String packId, int pageNo, int pageSize);
 
     String updatePartinfo(ProductInfoMap productInfoMap) throws Exception;
 
     String insertPartinfo(ProductInfoMap productInfoMap) throws Exception;
+
+    List<String> getSerialNum(String armNum);
+
+    List<String> getArmNum();
 }

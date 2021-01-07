@@ -40,7 +40,10 @@
     </resultMap>
 
     <select id="queryPartPack" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select * from productInfo where packId = #{packid}
+        select 钢卷号,日期, 时间,母卷号, 并包号, 捆包卷数, 堆垛区, 产品外径, 产品内径, 产品宽度, 品名, 标准, 规格, 牌号, 毛重增加, 件数, 炉号, 机组, 质量等级, 收货单位代号, 收货单位名称, 收货备注, 客户零件号, 客户零件名称, 检查员, 净重, 捆包号, 钢厂资源号, 毛重, 堆垛托盘号, 十字臂号, 臂上序号, 臂号加序号 from "宝钢数据库表"
+        <if test="packId != null and packId != ''">
+            where 捆包号 = #{packId}
+        </if>
     </select>
     <insert id="insertPartPack" parameterType="com.example.demo.entity.ProductInfoMap">
         INSERT INTO [dbo].[宝钢数据库表] ([钢卷号], [日期],[时间],[母卷号],[并包号],[捆包卷数], [堆垛区],[堆垛托盘号],
@@ -159,14 +162,23 @@
     </update>
 
     <select id="queryPartPackList" parameterType="String" resultMap="BaseResultMap">
-         select 钢卷号,日期, 时间,母卷号, 并包号, 捆包卷数, 堆垛区, 产品外径, 产品内径, 产品宽度, 品名, 标准, 规格, 牌号, 毛重增加, 件数, 炉号, 机组, 质量等级, 收货单位代号, 收货单位名称, 收货备注, 客户零件号, 客户零件名称, 检查员, 净重, 捆包号, 钢厂资源号, 毛重, 堆垛托盘号, 十字臂号, 臂上序号, 臂号加序号 from "宝钢数据库表"
+        select 钢卷号,日期, 时间,母卷号, 并包号, 捆包卷数, 堆垛区, 产品外径, 产品内径, 产品宽度, 品名, 标准, 规格, 牌号, 毛重增加, 件数, 炉号, 机组, 质量等级, 收货单位代号, 收货单位名称, 收货备注, 客户零件号, 客户零件名称, 检查员, 净重, 捆包号, 钢厂资源号, 毛重, 堆垛托盘号, 十字臂号, 臂上序号, 臂号加序号 from "宝钢数据库表"
         <if test="packId != null and packId != ''">
         where 捆包号 = #{packId}
         </if>
---         order by "捆包号"
+        order by "捆包号"
     </select>
     
     <select id="isRepeat" parameterType="com.example.demo.entity.ProductInfoMap" resultType="integer">
         select count(1) from 宝钢数据库表 where 十字臂号 = #{armNum} and 臂上序号 = #{serialNum} and 捆包号 &lt;&gt; #{packId}
     </select>
+
+    <select id="getArmNum" resultType="String">
+        select distinct 十字臂号 from 宝钢数据库表
+    </select>
+
+    <select id="getSerialNum" parameterType="String" resultType="String">
+        select distinct 臂上序号 from 宝钢数据库表 where 十字臂号 = #{armNum}
+    </select>
+
 </mapper>

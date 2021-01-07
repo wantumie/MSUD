@@ -320,7 +320,8 @@
                         <div class="input-group">
                             <span class="input-group-text" >十字臂号</span>
 <!--                            <input type="text" class="form-control" aria-describedby="name1" id="armNumAdd" >-->
-                            <select name="armNumAdd" id="armNumAdd" class="form-control">
+                            <select name="armNumAdd" id="armNumAdd" class="form-control" onchange="funcAdd()" >
+                                <option value="00">请选择</option>
                                 <option value="01">01</option>
                                 <option valeu="02">02</option>
                                 <option value="03">03</option>
@@ -333,18 +334,18 @@
                             <span class="input-group-text" >臂上序号</span>
 <!--                            <input type="text" class="form-control" aria-describedby="name1" id="serialNumAdd" >-->
                             <select name="serialNumAdd" id="serialNumAdd" class="form-control" >
-                                <option value="01">01</option>
-                                <option valeu="02">02</option>
-                                <option value="03">03</option>
-                                <option value="04">04</option>
-                                <option value="05">05</option>
-                                <option value="06">06</option>
-                                <option value="07">07</option>
-                                <option value="08">08</option>
-                                <option value="09">09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
+<!--                                <option value="01">01</option>-->
+<!--                                <option valeu="02">02</option>-->
+<!--                                <option value="03">03</option>-->
+<!--                                <option value="04">04</option>-->
+<!--                                <option value="05">05</option>-->
+<!--                                <option value="06">06</option>-->
+<!--                                <option value="07">07</option>-->
+<!--                                <option value="08">08</option>-->
+<!--                                <option value="09">09</option>-->
+<!--                                <option value="10">10</option>-->
+<!--                                <option value="11">11</option>-->
+<!--                                <option value="12">12</option>-->
                             </select>
                         </div>
                     </div>
@@ -611,9 +612,10 @@
                         <div class="input-group">
                             <span class="input-group-text" >十字臂号</span>
 <!--                            <input type="text" class="form-control" aria-describedby="name1" id="armNum" >-->
-                            <select name="armNum" id="armNum" class="form-control" >
+                            <select name="armNum" id="armNum" class="form-control" onchange="func()" >
+                                <option value="00">请选择</option>
                                 <option value="01">01</option>
-                                <option valeu="02">02</option>
+                                <option value="02">02</option>
                                 <option value="03">03</option>
                                 <option value="04">04</option>
                             </select>
@@ -625,18 +627,18 @@
                             <span class="input-group-text" >臂上序号</span>
 <!--                            <input type="text" class="form-control" aria-describedby="name1" id="serialNum" >-->
                             <select name="serialNum" id="serialNum" class="form-control" >
-                                <option value="01">01</option>
-                                <option valeu="02">02</option>
-                                <option value="03">03</option>
-                                <option value="04">04</option>
-                                <option value="05">05</option>
-                                <option value="06">06</option>
-                                <option value="07">07</option>
-                                <option value="08">08</option>
-                                <option value="09">09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
+<!--                                <option value="01">01</option>-->
+<!--                                <option value="02">02</option>-->
+<!--                                <option value="03">03</option>-->
+<!--                                <option value="04">04</option>-->
+<!--                                <option value="05">05</option>-->
+<!--                                <option value="06">06</option>-->
+<!--                                <option value="07">07</option>-->
+<!--                                <option value="08">08</option>-->
+<!--                                <option value="09">09</option>-->
+<!--                                <option value="10">10</option>-->
+<!--                                <option value="11">11</option>-->
+<!--                                <option value="12">12</option>-->
                             </select>
                         </div>
                     </div>
@@ -904,13 +906,93 @@
     function  del(id) {
         alert(id);
     }
+
+    function funcAdd(){
+        //获取被选中的option标签
+        var armNum = $('#armNumAdd  option:selected').val();
+        $.ajax({
+            url: '/getSerialNum',
+            dataType: "json",
+            data : {"armNum":armNum},
+            success:function (result) {
+                var select=$("#serialNumAdd");
+                $('#serialNumAdd option').remove();
+                for(var i=0;i<result.length;i++){
+                    console.log(result[i]);
+                    var option=document.createElement("option");
+                    option.setAttribute("type","option");
+                    option.setAttribute("id",result[i]);
+                    option.setAttribute("value", result[i]);
+                    option.appendChild(document.createTextNode(result[i]));
+                    select.append(option);
+                }
+            }
+        });
+    }
+
+    function func(){
+        //获取被选中的option标签
+        var armNum = $('#armNum  option:selected').val();
+        var packId = $("#packId").val();
+        $.ajax({
+            url: '/getSerialNum',
+            dataType: "json",
+            data : {"armNum":armNum, "packId":packId},
+            success:function (result) {
+                var select=$("#serialNum");
+                $('#serialNum option').remove();
+                for(var i=0;i<result.length;i++){
+                    console.log(result[i]);
+                    var option=document.createElement("option");
+                    option.setAttribute("type","option");
+                    option.setAttribute("id",result[i]);
+                    option.setAttribute("value", result[i]);
+                    option.appendChild(document.createTextNode(result[i]));
+                    select.append(option);
+                }
+            }
+        });
+    }
+
     function addInit() {
+        // $.ajax({
+        //     url: '/getArmNum',
+        //     dataType: "json",
+        //     success:function (result) {
+        //         var select=$("#armNumAdd");
+        //         for(var i=0;i<result.length;i++){
+        //             var option=document.createElement("option");
+        //             option.setAttribute("type","option");
+        //             option.setAttribute("id",result[i]);
+        //             option.setAttribute("value", result[i]);
+        //             option.appendChild(document.createTextNode(result[i]));
+        //             select.append(option);
+        //         }
+        //     }
+        // });
         $('#newAddModal').modal('show');
     }
 
     function updateInit(packid) {
         // console.log(packid);
         // var partId = $("#partId").val();
+        // $.ajax({
+        //     url: '/getArmNum',
+        //     dataType: "json",
+        //     success:function (result) {
+        //
+        //         var select=$("#armNum");
+        //         for(var i=0;i<result.length;i++){
+        //             console.log(result[i]);
+        //             var option=document.createElement("option");
+        //             option.setAttribute("type","option");
+        //             option.setAttribute("id",result[i]);
+        //             option.setAttribute("value", result[i]);
+        //             option.appendChild(document.createTextNode(result[i]));
+        //             select.append(option);
+        //         }
+        //     }
+        // });
         $('#updateModal').modal('show');
         $.ajax({
             url: '/querypartpackinfo',
@@ -922,6 +1004,28 @@
                 if (data != null && data.length > 0){
                     for (var i=0;i<data.length;i++){
                         // console.log(data[i].packId);
+                        var armNum = data[i].armNum;
+                        var packId = data[i].packId;
+                        $.ajax({
+                            url: '/getSerialNum',
+                            dataType: "json",
+                            async:false,
+                            data : { "packId":packId, "armNum":armNum,},
+                            success:function (result) {
+                                var select=$("#serialNum");
+                                $('#serialNum option').remove();
+                                for(var i=0;i<result.length;i++){
+                                    console.log(result[i]);
+                                    var option=document.createElement("option");
+                                    option.setAttribute("type","option");
+                                    option.setAttribute("id",result[i]);
+                                    option.setAttribute("value", result[i]);
+                                    option.appendChild(document.createTextNode(result[i]));
+                                    select.append(option);
+                                }
+                            }
+                        });
+
                         $('#packId').val(data[i].packId);
                         $('#innerDiameter').val(data[i].innerDiameter);
                         $('#outDiameter').val(data[i].outDiameter);
@@ -1100,6 +1204,7 @@
     function removeAllSpace(str) {
         return str.replace(/\s+/g, "");
     }
+
 </script>
 </body>
 </html>
